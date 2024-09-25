@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ProduccionTUP_frontend": {
+    "producciontup_frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/produccion-tup-frontend",
+            "outputPath": "dist/producciontup_frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -29,12 +29,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -55,7 +50,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -64,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ProduccionTUP_frontend:build:production"
+              "buildTarget": "producciontup_frontend:build:production"
             },
             "development": {
-              "buildTarget": "ProduccionTUP_frontend:build:development"
+              "buildTarget": "producciontup_frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,6 +100,6 @@
     }
   },
   "cli": {
-    "analytics": "b8c19bac-8aba-4bd4-8e61-6dfb58e88195"
+    "analytics": "36a4cf9e-443d-4f32-a0cf-643070c82de9"
   }
 }

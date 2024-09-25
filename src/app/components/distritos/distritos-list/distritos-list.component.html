@@ -1,0 +1,23 @@
+<h1>Lista de Distritos</h1>
+<button (click)="(['/distritos/create'])">Crear Distrito</button>
+<table>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Coordinador</th>
+      <th>Nombre del Distrito</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let distrito of distritos">
+      <td>{{ distrito.ID_Distrito }}</td>
+      <td>{{ distrito.Coordinador }}</td>
+      <td>{{ distrito.NombreDistrito }}</td>
+      <td>
+        <button (click)="editDistrito(distrito.ID_Distrito)">Editar</button>
+        <button (click)="deleteDistrito(distrito.ID_Distrito)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
