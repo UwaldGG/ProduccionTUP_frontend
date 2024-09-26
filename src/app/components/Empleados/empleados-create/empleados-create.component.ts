@@ -19,15 +19,15 @@ export class EmpleadosCreateComponent {
     Distrito: ''
   };
 
-  constructor(private EmpleadosService: EmpleadosService, private router: Router) {}
+  constructor(private empleadosService: EmpleadosService, private router: Router) {}
 
-  createPersonaResponsable(): void {
-    this.EmpleadosService.createEmpleados(this.newEmpleado).subscribe(
+  createEmpleados(): void {
+    this.empleadosService.createEmpleados(this.newEmpleado).subscribe(
       () => {
-        this.router.navigate(['/PersonaResponsable']);
+        this.router.navigate(['/empleados']);
       },
       (error) => {
-        console.error('Error creating Persona Responsable: ', error);
+        console.error('Error creating empleado: ', error);
       }
     );
   }

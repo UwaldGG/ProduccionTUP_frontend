@@ -44,7 +44,7 @@ export class DistritosEditComponent implements OnInit {
   updateDistrito(): void {
     this.distritosService.updateDistrito(this.distrito.ID_Distrito, this.distrito).subscribe(
       () => {
-        this.router.navigate(['/distritos']); // Redirigir a la lista de distritos
+        this.router.navigate(['/distritos/list']); // Redirigir a la lista de distritos
       },
       (error) => {
         console.error('Error updating distrito:', error);

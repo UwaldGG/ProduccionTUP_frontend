@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    
+</head>
+<body>
+    <div class="admin-panel">
+        <header>
+            <h1>Panel de Administración - Producción TUP</h1>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Inicio</a></li>
+                    <li><a href="#distritos">Gestionar Distritos</a></li>
+                    <li><a href="#tareas">Gestionar Tareas</a></li>
+                    <li><a href="#empleados">Gstionar Empleados</a></li>
+                    <li><a href="#reportes">Reportes Mensuales</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>Total Distritos</h3>
+                    <p id="total-distritos">{{totalDistritos}}</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Total Tareas</h3>
+                    <p id="total-tareas">0</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Empleados</h3>
+                    <p id="total-personas">{{totalEmpleados}}</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Reportes Mensuales</h3>
+                    <p id="total-reportes">0</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="distritos">
+            <h2>Gestionar Distritos</h2>
+            <!-- Aquí irían las opciones para agregar, editar, o eliminar distritos -->
+            <button (click)="(['/distritos/list'])">Ver Distritos</button>
+            <button (click)="(['/distritos/create'])">Crear nuevo distrito</button>
+            <button (click)="(['/distritos/edit'])">Editar distrito</button>
+        </section>
+
+        <section id="tareas">
+            <h2>Gestionar Tareas</h2>
+            <!-- Aquí irían las opciones para agregar, editar, o eliminar tareas -->
+            <button (click)="(['/tareas/list'])">Ver Lista</button>
+            <button (click)="(['/tareas/create'])">Crear nueva tarea</button>
+            <button (click)="(['/tareas/edit'])">Editar tarea</button>
+        </section>
+
+        <section id="empledos">
+            <h2>Empleados</h2>
+            <!-- Aquí irían las opciones para gestionar personas responsables -->
+            <button (click)="(['/empleados/list'])">Ver lista</button>
+            <button (click)="(['/empleados/create'])">Crear nuevo empleado</button>
+            <button (click)="(['/empleados/edit'])">Editar empleado</button>
+        </section>
+
+        <section id="reportes">
+            <h2>Reportes Mensuales</h2>
+            <!-- Aquí irían las opciones para visualizar y gestionar reportes mensuales -->
+        </section>
+
+        <footer>
+            <p>Producción TUP - Panel de Administración &copy; 2024</p>
+        </footer>
+    </div>
+</body>
+</html>

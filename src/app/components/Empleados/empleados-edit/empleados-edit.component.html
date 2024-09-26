@@ -1,1 +1,18 @@
-<p>empleados-edit works!</p>
+<h1>Editar información del empleado</h1>
+<form (ngSubmit)="updateEmpleado()">
+  <div>
+    <label for="nombre">Nombre</label>
+    <input id="nombre" [(ngModel)]="empleado.Nombre" name="nombre" required>
+  </div>
+  <div>
+    <label for="apellido">Apellido</label>
+    <input id="apellido" [(ngModel)]="empleado.Apellido" name="apellido" required>
+  </div>
+  <div>
+    <label for="distrito">Distrito</label>
+    <input id="distrito" [(ngModel)]="empleado.Distrito" name="distrito" required>
+  </div>
+  <button type="submit">Actualizar</button>
+</form>
+
+

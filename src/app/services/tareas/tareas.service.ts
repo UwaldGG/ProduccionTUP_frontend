@@ -3,34 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class EmpleadosService {
-  private apiUrl = 'http://localhost:3000/api/v1/Empleados';
+export class TareasService {
+  private apiUrl = 'http://localhost:3000/api/v1/Tareas';
 
   constructor(private http: HttpClient) {}
 
-  getEmpleados(): Observable<any> {
+  getTareas(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
 
-  getEmpleadosById(id: number): Observable<any> {
+  getTareaById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  createEmpleados(data: any): Observable<any> {
+  createTarea(data: any): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
 
-  updateEmpleados(id: number, data: any): Observable<any> {
+  updateTarea(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
-  deleteEmpleados(id: number): Observable<any> {
+  deleteTarea(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  getTotalEmpleados(): Observable<number> {
+  getTotalTareas(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/total`);
   }
 }

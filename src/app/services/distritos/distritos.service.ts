@@ -29,4 +29,8 @@ export class DistritosService {
   deleteDistrito(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  getTotalDistritos(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/total`); // Llama al endpoint que devuelve el total
+  }
 }

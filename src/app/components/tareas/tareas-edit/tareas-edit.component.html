@@ -1,0 +1,14 @@
+<h1>Editar Tareao</h1>
+<form (ngSubmit)="updateTarea()">
+  <div>
+    <label for="numero">Numero</label>
+    <input id="numero" [(ngModel)]="tarea.Numero" name="numero" required>
+  </div>
+  <div>
+    <label for="nombre">Nombre</label>
+    <input id="nombre" [(ngModel)]="tarea.Nombre" name="nombre" required>
+  </div>
+  <button type="submit">Actualizar</button>
+</form>
+
+

@@ -1,0 +1,20 @@
+<h1>Lista de Tareas</h1>
+<button (click)="(['/tareas/create'])">Crear nueva tarea</button>
+<table>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tarea of tareas">
+      <td>{{ tarea.ID_Tareas }}</td>
+      <td>{{ tarea.Nombre }}</td>
+      <td>
+        <button (click)="editTarea(tarea.ID_Tareas)">Editar</button>
+        <button (click)="deleteTarea(tarea.ID_Tareas)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
