@@ -12,7 +12,8 @@
     <tr *ngFor="let empleado of empleados">
       <td>{{ empleado.Nombre }}</td>
       <td>{{ empleado.Apellido }}</td>
-      <td>{{ empleado.Distrito }}</td>
+      <td>{{ empleado.Distrito?.NombreDistrito || 'Sin distrito' }}</td>
+
       <td>
         <button (click)="editEmpleado(empleado.ID_Persona_responsable)">Editar</button>
         <button (click)="deleteEmpleado(empleado.ID_Persona_responsable)">Eliminar</button>
