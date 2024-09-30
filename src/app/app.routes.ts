@@ -11,6 +11,7 @@ import { EmpleadosListComponent } from './components/Empleados/empleados-list/em
 import { TareasListComponent } from './components/tareas/tareas-list/tareas-list.component';
 import { TareasCreateComponent } from './components/tareas/tareas-create/tareas-create.component';
 import { TareasEditComponent } from './components/tareas/tareas-edit/tareas-edit.component';
+import { EmpleadoComponent } from './components/roles/empleado/empleado.component';
 
 
 const routes: Routes = [
@@ -26,9 +27,10 @@ const routes: Routes = [
   //{ path: '', redirectTo: 'empleados', pathMatch: 'full'},
   { path: 'tareas/list', component: TareasListComponent},
   { path: 'tareas/create', component: TareasCreateComponent},
-  { path: 'tareas/edit/:id', component: TareasEditComponent}
+  { path: 'tareas/edit/:id', component: TareasEditComponent},
 
-  // Redirige a distritos por defecto
+  { path: 'informe/', component: EmpleadoComponent}
+
 ];
 
 export { routes };

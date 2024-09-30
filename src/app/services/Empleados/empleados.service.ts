@@ -49,4 +49,8 @@ export class EmpleadosService {
     return this.http.get<Distrito[]>(`${this.apiUrl2}/list`); // Ajusta la URL según sea necesario
   }
 
+  guardarTareas(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/guardar-tareas`, data);
+  }
+
 }
