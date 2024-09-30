@@ -21,7 +21,7 @@ export class TareasCreateComponent {
   createTarea(): void {
     this.tareasService.createTarea(this.newTarea).subscribe(
       () => {
-        this.router.navigate(['/tareas']);
+        this.router.navigate(['/tareas/list']);
       },
       (error) => {
         console.error('Error creating tarea', error);

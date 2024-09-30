@@ -1,6 +1,6 @@
-<h1>Lista de Distritos</h1>
-<button (click)="(['/distritos/create'])">Crear Distrito</button>
-<table>
+<h1 class="title">Lista de Distritos</h1>
+<button (click)="createDistrito()" class="create-button">Crear Distrito</button>
+<table class="distritos-table">
   <thead>
     <tr>
       <th>No.</th>
@@ -15,8 +15,8 @@
       <td>{{ distrito.Coordinador }}</td>
       <td>{{ distrito.NombreDistrito }}</td>
       <td>
-        <button (click)="editDistrito(distrito.ID_Distrito)">Editar</button>
-        <button (click)="deleteDistrito(distrito.ID_Distrito)">Eliminar</button>
+        <button (click)="editDistrito(distrito.ID_Distrito)" class="action-button">Editar</button>
+        <button (click)="deleteDistrito(distrito.ID_Distrito)" class="action-button">Eliminar</button>
       </td>
     </tr>
   </tbody>

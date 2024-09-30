@@ -1,13 +1,24 @@
-<h1>Crear Empleado</h1>
-<form>
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" [(ngModel)]="newEmpleado.Nombre" name="nombre" required>
-  
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" [(ngModel)]="newEmpleado.Apellido" name="apellido" required>
-  
-    <label for="distrito">Distrito:</label>
+<h1 class="title">Crear Empleado</h1>
+<form (ngSubmit)="createEmpleado()" class="empleado-form">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" [(ngModel)]="newEmpleado.Nombre" name="nombre" required>
+    </div>
 
+    <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" [(ngModel)]="newEmpleado.Apellido" name="apellido" required>
+    </div>
 
-    <button type="submit">Crear Distrito</button>
-  </form>
+    <div class="form-group">
+        <label for="distrito">Distrito:</label>
+        <select id="distrito" [(ngModel)]="newEmpleado.fk_distrito" name="distrito" required>
+            <option value="" disabled selected>Seleccione un distrito</option> <!-- Opción predeterminada -->
+            <option *ngFor="let distrito of distritos" [value]="distrito.ID_Distrito">
+                {{ distrito.NombreDistrito }}
+            </option>
+        </select>
+    </div>
+
+    <button type="submit" class="create-button">Crear Empleado</button>
+</form>

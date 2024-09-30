@@ -1,10 +1,11 @@
-<h1>Lista de Tareas</h1>
-<button (click)="(['/tareas/create'])">Crear nueva tarea</button>
-<table>
+<h1 class="title">Lista de Tareas</h1>
+<button (click)="createTarea()" class="create-button">Crear nueva tarea</button>
+<table class="tareas-table">
   <thead>
     <tr>
       <th>No.</th>
       <th>Nombre</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -12,8 +13,8 @@
       <td>{{ tarea.ID_Tareas }}</td>
       <td>{{ tarea.Nombre }}</td>
       <td>
-        <button (click)="editTarea(tarea.ID_Tareas)">Editar</button>
-        <button (click)="deleteTarea(tarea.ID_Tareas)">Eliminar</button>
+        <button (click)="editTarea(tarea.ID_Tareas)" class="action-button">Editar</button>
+        <button (click)="deleteTarea(tarea.ID_Tareas)" class="action-button">Eliminar</button>
       </td>
     </tr>
   </tbody>

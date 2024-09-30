@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
-
-import { DistritosService } from '../../../services/distritos/distritos.service'; // Servicio para manejar distritos
-import { TareasService } from '../../../services/tareas/tareas.service'; // Servicio para manejar tareas
-import { EmpleadosService } from '../../../services/Empleados/empleados.service'; // Servicio para personas responsables
 import { Router } from '@angular/router';
-//import { ReportesService } from './services/reportes.service'; // Servicio para reportes mensuales
 
+import { DistritosService } from '../../../services/distritos/distritos.service'; 
+import { TareasService } from '../../../services/tareas/tareas.service'; 
+import { EmpleadosService } from '../../../services/Empleados/empleados.service'; 
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
@@ -19,26 +15,21 @@ export class AdminComponent implements OnInit {
   totalDistritos: number = 0;
   totalTareas: number = 0;
   totalEmpleados: number = 0;
-  //totalReportes: number = 0;
   
   constructor(
     private distritosService: DistritosService,
     private tareasService: TareasService,
     private empleadosService: EmpleadosService,
     private router: Router
-    //private reportesService: ReportesService
   ) {}
 
   ngOnInit(): void {
-    console.log('pase: ', this.totalDistritos)
     this.loadData();
   }
 
   loadData(): void {
-    // Cargar el total de distritos
     this.distritosService.getTotalDistritos().subscribe(
       (data: number) => {
-        console.log('total: ', data)
         this.totalDistritos = data;
       },
       (error) => {
@@ -46,7 +37,6 @@ export class AdminComponent implements OnInit {
       }
     );
 
-    // Cargar el total de tareas
     this.tareasService.getTotalTareas().subscribe(
       (data: number) => {
         this.totalTareas = data;
@@ -56,26 +46,71 @@ export class AdminComponent implements OnInit {
       }
     );
 
-    // Cargar el total de personas responsables
     this.empleadosService.getTotalEmpleados().subscribe(
       (data: number) => {
-        console.log('total: ', data)
         this.totalEmpleados = data;
       },
       (error) => {
-        console.error('Error fetching personas responsables:', error);
+        console.error('Error fetching empleados:', error);
       }
     );
-
-    // Cargar el total de reportes mensuales
-    //this.reportesService.getTotalReportes().subscribe(
-      //(data: number) => {
-       // this.totalReportes = data;
-      //},
-      //(error) => {
-        //console.error('Error fetching reportes:', error);
-      //}
-  //);
   }
 
+  // Métodos de navegación
+  goToDashboard(): void {
+    this.router.navigate(['/admin/dashboard']);
+  }
+
+  goToDistritos(): void {
+    this.router.navigate(['/distritos']);
+  }
+
+  goToTareas(): void {
+    this.router.navigate(['/tareas']);
+  }
+
+  goToEmpleados(): void {
+    this.router.navigate(['/empleados']);
+  }
+
+  goToReportes(): void {
+    this.router.navigate(['/reportes']);
+  }
+
+  // Métodos específicos para cada acción
+  goToDistritosList(): void {
+    this.router.navigate(['/distritos/list']);
+  }
+
+  goToDistritosCreate(): void {
+    this.router.navigate(['/distritos/create']);
+  }
+
+  goToDistritosEdit(): void {
+    this.router.navigate(['/distritos/edit']);
+  }
+
+  goToTareasList(): void {
+    this.router.navigate(['/tareas/list']);
+  }
+
+  goToTareasCreate(): void {
+    this.router.navigate(['/tareas/create']);
+  }
+
+  goToTareasEdit(): void {
+    this.router.navigate(['/tareas/edit']);
+  }
+
+  goToEmpleadosList(): void {
+    this.router.navigate(['/empleados/list']);
+  }
+
+  goToEmpleadosCreate(): void {
+    this.router.navigate(['/empleados/create']);
+  }
+
+  goToEmpleadosEdit(): void {
+    this.router.navigate(['/empleados/edit']);
+  }
 }

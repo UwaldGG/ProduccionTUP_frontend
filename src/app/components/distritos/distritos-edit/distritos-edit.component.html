@@ -1,14 +1,12 @@
-<h1>Editar Distrito</h1>
-<form (ngSubmit)="updateDistrito()">
-  <div>
+<h1 class="title">Editar Distrito</h1>
+<form (ngSubmit)="updateDistrito()" class="distrito-form">
+  <div class="form-group">
     <label for="coordinador">Coordinador:</label>
     <input id="coordinador" [(ngModel)]="distrito.Coordinador" name="coordinador" required>
   </div>
-  <div>
+  <div class="form-group">
     <label for="nombre">Nombre del Distrito:</label>
     <input id="nombre" [(ngModel)]="distrito.NombreDistrito" name="nombre" required>
   </div>
-  <button type="submit">Actualizar</button>
+  <button type="submit" class="submit-button">Actualizar</button>
 </form>
-
-

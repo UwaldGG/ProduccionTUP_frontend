@@ -23,7 +23,7 @@ export class DistritosCreateComponent {
   createDistrito(): void {
     this.distritosService.createDistrito(this.newDistrito).subscribe(
       () => {
-        this.router.navigate(['/distritos']); // Redirigir a la lista de distritos
+        this.router.navigate(['/distritos/list']); // Redirigir a la lista de distritos
       },
       (error) => {
         console.error('Error creating distrito:', error);

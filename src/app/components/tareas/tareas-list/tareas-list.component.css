@@ -1,0 +1,71 @@
+.title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.create-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.create-button:hover {
+    background-color: #218838;
+}
+
+.tareas-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tareas-table th, .tareas-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tareas-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.action-button {
+    margin-bottom: 10px; /* Añadido para mayor separación vertical */
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .tareas-table, .create-button {
+        width: 90%;
+    }
+
+    .tareas-table th, .tareas-table td {
+        font-size: 14px;
+    }
+
+    .create-button {
+        font-size: 14px;
+    }
+}
