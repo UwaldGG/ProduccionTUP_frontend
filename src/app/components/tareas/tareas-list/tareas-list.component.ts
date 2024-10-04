@@ -48,7 +48,7 @@ export class TareasListComponent implements OnInit {
       (error) => {
         console.error.apply('Error deleting tarea: ', error);
       }
-    )
+    );
   }
   
 }

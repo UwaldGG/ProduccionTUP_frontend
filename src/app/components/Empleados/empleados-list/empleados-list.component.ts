@@ -20,8 +20,8 @@ export class EmpleadosListComponent implements OnInit {
   constructor(private empleadosService: EmpleadosService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getEmpleados();
-    this.getEmpleadosConDistritos();
+    //this.getEmpleados();
+    this.getEmpleadosWithDistritos();
   }
 
   getEmpleados(): void {
@@ -46,7 +46,7 @@ export class EmpleadosListComponent implements OnInit {
   deleteEmpleado(id: number): void {
     this.empleadosService.deleteEmpleados(id).subscribe(
       () => {
-        this.getEmpleadosConDistritos();
+        this.getEmpleadosWithDistritos();
       },
       (error) => {
         console.error('Error deleting empleado', error);
@@ -55,17 +55,15 @@ export class EmpleadosListComponent implements OnInit {
   }
 
 
-  getEmpleadosConDistritos(): void {
-    this.empleadosService.getEmpleadosConDistritos().subscribe(
+  getEmpleadosWithDistritos(): void {
+    this.empleadosService.getEmpleadosWithDistritos().subscribe(
       (data: any[]) => {
-        this.empleados = this.empleados.map(empleado => ({
-          ...empleado,
-          Distrito: data.find((distrito: any) => distrito.ID_Distrito === empleado.fk_distrito) // Especifica el tipo aquí
-        }));
+        this.empleados = data;  // Asignar directamente los empleados con distritos
       },
       (error) => {
         console.error('Error fetching empleados', error);
       }
     );
   }
+  
 }

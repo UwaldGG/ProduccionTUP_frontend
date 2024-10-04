@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class DistritosService {
   private apiUrl = 'http://localhost:3000/api/v1/distritos';
+  private apiUrl2 = 'http://localhost:3000/api/v1/empleados';
+
+
 
   constructor(private http: HttpClient) {}
 
@@ -32,5 +35,9 @@ export class DistritosService {
 
   getTotalDistritos(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/total`); // Llama al endpoint que devuelve el total
+  }
+
+  getEmpleadosByDistrito(distritoId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/empleados/distrito/${distritoId}`);
   }
 }

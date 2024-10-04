@@ -11,12 +11,17 @@ import { EmpleadosListComponent } from './components/Empleados/empleados-list/em
 import { TareasListComponent } from './components/tareas/tareas-list/tareas-list.component';
 import { TareasCreateComponent } from './components/tareas/tareas-create/tareas-create.component';
 import { TareasEditComponent } from './components/tareas/tareas-edit/tareas-edit.component';
-import { EmpleadoComponent } from './components/roles/empleado/empleado.component';
+import { IdentificarComponent } from './components/roles/empleado/identificar/identificar/identificar.component';
+import { DataComponent } from './components/roles/empleado/data/data/data.component';
 
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
   { path: 'admin', component: AdminComponent },
+
+  { path: 'identificar', component: IdentificarComponent },
+  { path: 'data', component: DataComponent },
+
   { path: 'distritos/list', component: DistritosListComponent },
   { path: 'distritos/create', component: DistritosCreateComponent },
   { path: 'distritos/edit/:id', component: DistritosEditComponent },
@@ -25,11 +30,10 @@ const routes: Routes = [
   { path: 'empleados/create', component: EmpleadosCreateComponent },
   { path: 'empleados/edit/:id', component: EmpleadosEditComponent },
   //{ path: '', redirectTo: 'empleados', pathMatch: 'full'},
-  { path: 'tareas/list', component: TareasListComponent},
-  { path: 'tareas/create', component: TareasCreateComponent},
-  { path: 'tareas/edit/:id', component: TareasEditComponent},
+  { path: 'tareas/list', component: TareasListComponent },
+  { path: 'tareas/create', component: TareasCreateComponent },
+  { path: 'tareas/edit/:id', component: TareasEditComponent },
 
-  { path: 'informe/', component: EmpleadoComponent}
 
 ];
 

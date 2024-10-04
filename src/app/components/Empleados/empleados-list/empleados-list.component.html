@@ -13,11 +13,11 @@
     <tr *ngFor="let empleado of empleados">
       <td>{{ empleado.Nombre }}</td>
       <td>{{ empleado.Apellido }}</td>
-      <td>{{ empleado.Distrito?.NombreDistrito || 'Sin distrito' }}</td>
+      <td>{{ empleado.distrito?.NombreDistrito || 'Sin distrito' }}</td>
 
       <td>
-        <button (click)="editEmpleado(empleado.ID_Persona_responsable)" class="action-button">Editar</button>
-        <button (click)="deleteEmpleado(empleado.ID_Persona_responsable)" class="action-button">Eliminar</button>
+        <button (click)="editEmpleado(empleado.ID_Empleado)" class="action-button">Editar</button>
+        <button (click)="deleteEmpleado(empleado.ID_Empleado)" class="action-button">Eliminar</button>
       </td>
     </tr>
   </tbody>

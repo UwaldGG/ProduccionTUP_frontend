@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class TareasCreateComponent {
   newTarea: any = {
     Numero: '',
-    Nombre: ''
+    Descripcion: ''
   };
 
   constructor(private tareasService: TareasService, private router: Router) {}

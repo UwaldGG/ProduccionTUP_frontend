@@ -33,4 +33,8 @@ export class TareasService {
   getTotalTareas(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/total`);
   }
+  // Obtener registros de tareas mensuales para empleados
+  getRegistros(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/registros`);  // Supone que existe el endpoint '/registros'
+  }
 }

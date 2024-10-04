@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Distrito y Empleado</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">Iniciar Sesión</h1>
+
+        <form id="loginForm" (ngSubmit)="onLogin()">
+            <!-- Lista desplegable de distritos -->
+            <div class="form-group">
+                <label for="distrito">Seleccione su distrito:</label>
+                <select id="distrito" class="form-control" (change)="onDistritoChange($event)">
+                    <option value="" disabled selected>Seleccione un distrito</option>
+                    <option *ngFor="let distrito of distritos" [value]="distrito.ID_Distrito">{{ distrito.NombreDistrito }}</option>
+                </select>
+            </div>
+
+            <!-- Lista desplegable de empleados -->
+            <div class="form-group">
+                <label for="empleado">Seleccione su nombre:</label>
+                <select id="empleado" class="form-control" [disabled]="!empleados.length" (change)="onEmpleadoChange($event)">
+                    <option value="" disabled selected>Seleccione un empleado</option>
+                    <option *ngFor="let empleado of empleados" [value]="empleado.ID_Empleado">{{ empleado.Nombre }} {{ empleado.Apellido }}</option>
+                </select>
+              </div>
+            <!-- Botón de inicio de sesión -->
+            <div class="form-group">
+                <button type="button" class="login-button" (click)="onLogin()">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+

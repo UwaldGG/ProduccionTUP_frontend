@@ -24,22 +24,9 @@ export class EmpleadosCreateComponent {
   constructor(private empleadosService: EmpleadosService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadDistritos();
   }
 
 
-  
-  loadDistritos(): void {
-    this.empleadosService.getDistritos().subscribe(
-      (data: Distrito[]) => { // Especifica el tipo de data aquí
-        this.distritos = data; // Asegúrate de que la respuesta contenga los distritos
-        //console.log(this.distritos);
-      },
-      (error) => {
-        console.error('Error fetching distritos', error);
-      }
-    );
-  }
 
   createEmpleado(): void {
     this.empleadosService.createEmpleados(this.newEmpleado).subscribe(

@@ -20,8 +20,8 @@ export class TareasEditComponent implements OnInit {
     private router: Router
   ) {
     this.tarea = {
-      ID_Tareas: null,
-      Nombre: ''
+      ID_Tarea: null,
+      Descripcion: ''
     };
   }
 
