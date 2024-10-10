@@ -1,8 +1,17 @@
 <h1 class="title">Lista de Empleados</h1>
-<button (click)="(['/empleados/create'])" class="create-button">Crear nuevo Empleado</button>
+
+<!-- Campo de búsqueda mejorado -->
+<div class="search-container">
+  <input type="text" placeholder="Buscar por nombre, apellido o distrito..." [(ngModel)]="searchText" class="search-input"/>
+  <button class="clear-button" *ngIf="searchText" (click)="searchText = ''">✖</button>
+</div>
+
+<button (click)="createEmpleado()" class="create-button">Crear nuevo Empleado</button>
+
 <table class="empleados-table">
   <thead>
     <tr>
+      <th>No.</th>
       <th>Nombre</th>
       <th>Apellido</th>
       <th>Distrito</th>
@@ -10,7 +19,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let empleado of empleados">
+    <!-- Aplicar el Pipe de búsqueda -->
+    <tr *ngFor="let empleado of empleados | filterEmpleado: searchText; let i = index">
+      <td>{{ i + 1 }}</td>
       <td>{{ empleado.Nombre }}</td>
       <td>{{ empleado.Apellido }}</td>
       <td>{{ empleado.distrito?.NombreDistrito || 'Sin distrito' }}</td>

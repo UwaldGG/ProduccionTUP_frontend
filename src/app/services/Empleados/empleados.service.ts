@@ -11,6 +11,15 @@ export class EmpleadosService {
 
   constructor(private http: HttpClient) {}
 
+  getEmpleado(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  // Obtener las tareas del empleado con valores por mes
+  getTareasEmpleado(empleadoId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${empleadoId}/tareas`);
+  }
+
   getEmpleados(): Observable<any> {
     return this.http.get(this.apiUrl);
   }

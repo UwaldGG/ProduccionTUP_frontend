@@ -1,18 +1,24 @@
-<h1>Editar información del empleado</h1>
-<form (ngSubmit)="updateEmpleado()">
-  <div>
-    <label for="nombre">Nombre</label>
+<h1 class="title">Editar información del empleado</h1>
+<form (ngSubmit)="updateEmpleado()" class="empleado-form">
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
     <input id="nombre" [(ngModel)]="empleado.Nombre" name="nombre" required>
   </div>
-  <div>
-    <label for="apellido">Apellido</label>
+  
+  <div class="form-group">
+    <label for="apellido">Apellido:</label>
     <input id="apellido" [(ngModel)]="empleado.Apellido" name="apellido" required>
   </div>
-  <div>
-    <label for="distrito">Distrito</label>
-    <input id="distrito" [(ngModel)]="empleado.Distrito" name="distrito" required>
+
+  <div class="form-group">
+    <label for="distrito">Distrito:</label>
+    <select id="distrito" [(ngModel)]="empleado.fk_distrito" name="distrito" required>
+      <option value="" disabled selected>Seleccione un distrito</option>
+      <option *ngFor="let distrito of distritos" [value]="distrito.ID_Distrito">
+        {{ distrito.NombreDistrito }}
+      </option>
+    </select>
   </div>
-  <button type="submit">Actualizar</button>
+
+  <button type="submit" class="submit-button">Actualizar</button>
 </form>
-
-

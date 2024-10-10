@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DistritosService } from '../../../services/distritos/distritos.service'; 
-import { TareasService } from '../../../services/tareas/tareas.service'; 
-import { EmpleadosService } from '../../../services/Empleados/empleados.service'; 
+import { DistritosService } from '../../../../../services/distritos/distritos.service'; 
+import { TareasService } from '../../../../../services/tareas/tareas.service'; 
+import { EmpleadosService } from '../../../../../services/Empleados/empleados.service'; 
 
 @Component({
-  selector: 'app-admin',
+  selector: 'app-panel',
   standalone: true,
-  templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  templateUrl: './panel.component.html',
+  styleUrl: './panel.component.css'
 })
-export class AdminComponent implements OnInit {
+export class PanelComponent implements OnInit {
   totalDistritos: number = 0;
   totalTareas: number = 0;
   totalEmpleados: number = 0;
@@ -56,61 +56,40 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  // Métodos de navegación
-  goToDashboard(): void {
-    this.router.navigate(['/admin/dashboard']);
-  }
-
-  goToDistritos(): void {
-    this.router.navigate(['/distritos']);
-  }
-
-  goToTareas(): void {
-    this.router.navigate(['/tareas']);
-  }
-
-  goToEmpleados(): void {
-    this.router.navigate(['/empleados']);
-  }
-
-  goToReportes(): void {
-    this.router.navigate(['/reportes']);
-  }
-
   // Métodos específicos para cada acción
   goToDistritosList(): void {
-    this.router.navigate(['/distritos/list']);
+    this.router.navigate(['/admin-panel/distritos/list']);
   }
 
   goToDistritosCreate(): void {
-    this.router.navigate(['/distritos/create']);
+    this.router.navigate(['/admin-panel/distritos/create']);
   }
 
   goToDistritosEdit(): void {
-    this.router.navigate(['/distritos/edit']);
+    this.router.navigate(['/admin-panel/distritos/edit']);
   }
 
   goToTareasList(): void {
-    this.router.navigate(['/tareas/list']);
+    this.router.navigate(['/admin-panel/tareas/list']);
   }
 
   goToTareasCreate(): void {
-    this.router.navigate(['/tareas/create']);
+    this.router.navigate(['/admin-panel/tareas/create']);
   }
 
   goToTareasEdit(): void {
-    this.router.navigate(['/tareas/edit']);
+    this.router.navigate(['/admin-panel/tareas/edit']);
   }
 
   goToEmpleadosList(): void {
-    this.router.navigate(['/empleados/list']);
+    this.router.navigate(['/admin-panel/empleados/list']);
   }
 
   goToEmpleadosCreate(): void {
-    this.router.navigate(['/empleados/create']);
+    this.router.navigate(['/admin-panel/empleados/create']);
   }
 
   goToEmpleadosEdit(): void {
-    this.router.navigate(['/empleados/edit']);
+    this.router.navigate(['/admin-panel/empleados/edit']);
   }
 }

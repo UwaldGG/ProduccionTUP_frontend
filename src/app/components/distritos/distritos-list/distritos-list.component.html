@@ -1,19 +1,52 @@
 <h1 class="title">Lista de Distritos</h1>
-<button (click)="createDistrito()" class="create-button">Crear Distrito</button>
+
+<!-- Campo de búsqueda mejorado para distritos -->
+<div class="search-container">
+  <input 
+    type="text" 
+    placeholder="Buscar por nombre de distrito..." 
+    [(ngModel)]="searchText" 
+    class="search-input"
+  />
+  <button 
+    class="clear-button" 
+    *ngIf="searchText" 
+    (click)="searchText = ''">✖</button>
+</div>
+
+<button (click)="createDistrito()" class="create-button">Crear nuevo Distrito</button>
+
 <table class="distritos-table">
   <thead>
     <tr>
       <th>No.</th>
-      <th>Coordinador</th>
       <th>Nombre del Distrito</th>
+      <th>Coordinador</th>
+      <th>Contraseña</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let distrito of distritos">
-      <td>{{ distrito.ID_Distrito }}</td>
-      <td>{{ distrito.Coordinador }}</td>
+    <!-- Aplicar el Pipe de búsqueda en los distritos -->
+    <tr *ngFor="let distrito of distritos | filterDistrito: searchText; let i = index">
+      <td>{{ i + 1 }}</td>
       <td>{{ distrito.NombreDistrito }}</td>
+      <td>{{ distrito.Coordinador }}</td>
+      <td>
+        <!-- Comprobar si el distrito tiene contraseña -->
+        <ng-container *ngIf="distrito.Contrasenia">
+          <!-- Mostrar la contraseña si está visible, de lo contrario, mostrar '******' -->
+          {{ showPasswords[distrito.ID_Distrito] ? distrito.Contrasenia : '******' }}
+          <!-- Botón para alternar la visibilidad de la contraseña -->
+          <button (click)="togglePasswordVisibility(distrito.ID_Distrito)" class="action-button2">
+            {{ showPasswords[distrito.ID_Distrito] ? '🔒' : '👁️' }}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="!distrito.Contrasenia">
+          <!-- Si no hay contraseña, mostrar un mensaje o dejarlo vacío -->
+          Sin contraseña
+        </ng-container>
+      </td>
       <td>
         <button (click)="editDistrito(distrito.ID_Distrito)" class="action-button">Editar</button>
         <button (click)="deleteDistrito(distrito.ID_Distrito)" class="action-button">Eliminar</button>

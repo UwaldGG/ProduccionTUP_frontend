@@ -9,15 +9,6 @@
     <div class="admin-panel">
         <header>
             <h1>Panel de Administración - Producción TUP</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" (click)="goToDashboard()">Inicio</a></li>
-                    <li><a href="#" (click)="goToDistritos()">Distritos</a></li>
-                    <li><a href="#" (click)="goToTareas()">Tareas</a></li>
-                    <li><a href="#" (click)="goToEmpleados()">Empleados</a></li>
-                    <li><a href="#" (click)="goToReportes()">Reportes</a></li>
-                </ul>
-            </nav>
         </header>
 
         <section id="dashboard">
@@ -38,6 +29,12 @@
             </div>
         </section>
 
+        <section id="reportes">
+            <h2>Generar Reportes</h2>
+            <button (click)="goToDistritosList()">Por Distrito</button>
+            <button (click)="goToDistritosCreate()">Por cuatrimestre</button>
+        </section>
+
         <section id="distritos">
             <h2>Gestionar Distritos</h2>
             <button (click)="goToDistritosList()">Ver Distritos</button>
@@ -54,10 +51,6 @@
             <h2>Empleados</h2>
             <button (click)="goToEmpleadosList()">Ver lista</button>
             <button (click)="goToEmpleadosCreate()">Crear nuevo empleado</button>
-        </section>
-
-        <section id="reportes">
-            <h2>Reportes Mensuales</h2>
         </section>
 
         <footer>

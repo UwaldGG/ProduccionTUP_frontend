@@ -1,71 +1,132 @@
-.title {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 24px;
-    color: #333;
-}
-
-.create-button {
-    display: block;
-    margin: 20px auto;
+/* Contenedor del campo de búsqueda */
+.search-container {
+    position: relative; /* Importante para posicionar el botón 'X' dentro del input */
+    width: 100%;
+    max-width: 400px; /* Tamaño máximo de la barra de búsqueda */
+    margin-bottom: 15px;
+  }
+  
+  /* Input de búsqueda */
+  .search-input {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 35px; /* Espacio extra para el botón 'X' */
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  /* Efecto al enfocarse */
+  .search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  }
+  
+  /* Botón 'X' para limpiar el campo de búsqueda */
+  .clear-button {
+    position: absolute;
+    right: 10px; /* Mantén el botón dentro del contenedor del input */
+    top: 50%; 
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+  }
+  
+  .clear-button:hover {
+    color: #000;
+  }
+  
+  
+  /* Botón de crear empleado */
+  .create-button {
+    margin-bottom: 20px;
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-}
-
-.create-button:hover {
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-button:hover {
     background-color: #218838;
-}
-
-.empleados-table {
+  }
+  
+  /* Tabla de empleados */
+  .empleados-table {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
     border-collapse: collapse;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.empleados-table th, .empleados-table td {
+    margin-top: 10px;
+  }
+  
+  .empleados-table th,
+  .empleados-table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-}
-
-.empleados-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-.action-button {
-    margin-bottom: 10px; /* Añadido para mayor separación vertical */
-    padding: 6px 12px;
+  }
+  
+  .empleados-table th {
+    background-color: #f8f9fa;
+  }
+  
+  .empleados-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .action-button {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.action-button:hover {
+    margin-right: 10px;
+  }
+  
+  .action-button:hover {
     background-color: #0056b3;
+  }
+  
+  /* Estilo para la barra de búsqueda */
+.search-bar {
+  position: relative;  /* Contenedor relativo para la "X" */
+  margin-bottom: 15px;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .empleados-table, .create-button {
-        width: 90%;
-    }
+.search-input {
+  padding: 10px;
+  padding-right: 40px;  /* Espacio para la "X" */
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
 
-    .empleados-table th, .empleados-table td {
-        font-size: 14px;
-    }
+/* Botón de "X" para limpiar el campo de búsqueda */
+.clear-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+}
 
-    .create-button {
-        font-size: 14px;
-    }
+.clear-button:hover {
+  color: #000;
 }

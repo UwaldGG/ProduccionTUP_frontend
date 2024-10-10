@@ -1,14 +1,21 @@
-<h1>Editar Tareao</h1>
-<form (ngSubmit)="updateTarea()">
-  <div>
-    <label for="numero">Numero</label>
-    <input id="numero" [(ngModel)]="tarea.Numero" name="numero" required>
+<h1 class="title">Editar Tarea</h1>
+
+<!-- Mostrar el mensaje de éxito si existe -->
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+
+<!-- Mostrar el mensaje de error si existe -->
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<form (ngSubmit)="updateTarea()" class="tarea-form">
+  <div class="form-group">
+    <label for="descripcion">Descripcion</label>
+    <input id="descripcion" [(ngModel)]="tarea.Descripcion" name="descripcion" required>
   </div>
-  <div>
-    <label for="nombre">Nombre</label>
-    <input id="nombre" [(ngModel)]="tarea.Nombre" name="nombre" required>
-  </div>
-  <button type="submit">Actualizar</button>
+  <button type="submit" class="submit-button">Actualizar</button>
 </form>
 
 

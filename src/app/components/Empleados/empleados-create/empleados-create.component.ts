@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmpleadosService } from '../../../services/Empleados/empleados.service';
+import { DistritosService } from '../../../services/distritos/distritos.service'; // Importar el servicio de distritos
 import { CommonModule } from '@angular/common';
-
+import { Distrito } from '../../../interfaces/model'
 
 @Component({
   selector: 'app-empleados-create',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './empleados-create.component.html',
   styleUrl: './empleados-create.component.css'
 })
-export class EmpleadosCreateComponent {
+export class EmpleadosCreateComponent implements OnInit {
   newEmpleado: any = {
     Nombre: '',
     Apellido: '',
@@ -21,17 +22,35 @@ export class EmpleadosCreateComponent {
 
   distritos: Distrito[] = [];
 
-  constructor(private empleadosService: EmpleadosService, private router: Router) {}
+  errorMessage: string = ''; // Mensaje de error
+  successMessage: String = '';
+
+  constructor(
+    private empleadosService: EmpleadosService, 
+    private distritosService: DistritosService, // Inyectar el servicio de distritos
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.loadDistritos(); // Cargar distritos al iniciar el componente
   }
 
-
+  loadDistritos(): void {
+    this.distritosService.getDistritos().subscribe(
+      (data: Distrito[]) => {
+        this.distritos = data;
+      },
+      (error) => {
+        console.error('Error fetching distritos: ', error);
+      }
+    );
+  }
 
   createEmpleado(): void {
     this.empleadosService.createEmpleados(this.newEmpleado).subscribe(
       () => {
-        this.router.navigate(['/empleados/list']);
+        this.router.navigate(['/admin-panel/empleados/list'], { replaceUrl: true });
+
       },
       (error) => {
         console.error('Error creating empleado: ', error);
@@ -39,11 +58,4 @@ export class EmpleadosCreateComponent {
     );
   }
 }
-
-
-interface Distrito {
-  ID_Distrito: number; // Asegúrate de que el nombre coincida con el de tu API
-  NombreDistrito: string;
-}
-
 

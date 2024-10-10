@@ -13,7 +13,7 @@
     <div class="form-group">
         <label for="distrito">Distrito:</label>
         <select id="distrito" [(ngModel)]="newEmpleado.fk_distrito" name="distrito" required>
-            <option value="" disabled selected>Seleccione un distrito</option> <!-- Opción predeterminada -->
+            <option [ngValue]="null" disabled>Seleccione un distrito</option> <!-- Opción predeterminada -->
             <option *ngFor="let distrito of distritos" [value]="distrito.ID_Distrito">
                 {{ distrito.NombreDistrito }}
             </option>

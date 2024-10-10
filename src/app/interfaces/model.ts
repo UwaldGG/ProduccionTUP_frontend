@@ -6,9 +6,9 @@ export interface Distrito {
 
 export interface EmpleadosTareas {
   ID_Dato: number;
-  Mes: number;
-  Valor: number;
-  Año: number;
+  mes: number;
+  cantidad: number;
+  anio: number;
 }
 
 export interface Empleado {

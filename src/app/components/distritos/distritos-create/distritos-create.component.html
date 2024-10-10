@@ -1,4 +1,15 @@
 <h1 class="title">Crear Distrito</h1>
+
+<!-- Mostrar el mensaje de éxito si existe -->
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+
+<!-- Mostrar el mensaje de error si existe -->
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
 <form (ngSubmit)="createDistrito()" class="distrito-form">
     <div class="form-group">
         <label for="coordinador">Coordinador:</label>
@@ -8,6 +19,11 @@
     <div class="form-group">
         <label for="nombre">Nombre del Distrito:</label>
         <input type="text" id="nombre" [(ngModel)]="newDistrito.NombreDistrito" name="nombre" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="newDistrito.Contrasenia" name="password" required>
     </div>
 
     <button type="submit" class="create-button">Crear Distrito</button>

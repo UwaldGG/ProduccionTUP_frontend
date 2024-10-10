@@ -1,90 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe Mensual</title>
-</head>
-<body>
-
-<h2 class="header">Programa Salud Reproductiva</h2>
-<h3 class="header">INFORME MENSUAL TÉCNICAS UNIVERSITARIAS EN PARTERÍA</h3>
-
-<table>
-    <tr>
-        <td colspan="7">Nombre de la Persona Responsable: <strong>{{ empleado.Nombre}} </strong></td>
-        <td colspan="7">Distrito de Salud: <strong>{{ID_Distrito}}</strong> <strong> {{NombreDistrito}}</strong></td>
-    </tr>
-    <tr>
-        <td colspan="14">Vo. Bo. Del Coordinador/a del distrito: <strong>{{distrito.coordinador}}</strong></td>
-    </tr>
-</table>
-
-<br>
-
-<table>
-    <thead>
-        <tr>
-            <th rowspan="2">No.</th>
-            <th rowspan="2">Actividades Realizadas</th>
-            <th colspan="12">Meses</th>
-            <th rowspan="2" class="totales">Totales</th>
-        </tr>
-        <tr>
-            <th>ENE</th>
-            <th>FEB</th>
-            <th>MAR</th>
-            <th>ABR</th>
-            <th>MAY</th>
-            <th>JUN</th>
-            <th>JUL</th>
-            <th>AGO</th>
-            <th>SEP</th>
-            <th>OCT</th>
-            <th>NOV</th>
-            <th>DIC</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Repite este bloque de fila para cada una de las 66 tareas -->
-        <tr>
-            <td>{{ID_Tarea}}</td>
-            <td>{{Descripcion}}</td>
-            <td>{{Valor}}</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>1</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>1</td>
-            <td class="totales">18</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>No. de cuartos controles vistos según norma</td>
-            <td>5</td>
-            <td>7</td>
-            <td>8</td>
-            <td>4</td>
-            <td>6</td>
-            <td>4</td>
-            <td>6</td>
-            <td>4</td>
-            <td>6</td>
-            <td>4</td>
-            <td>6</td>
-            <td>4</td>
-            <td class="totales">60</td>
-        </tr>
-        <!-- Añadir más filas de esta manera hasta la tarea 66 -->
-        <!-- ... -->
-    </tbody>
-</table>
-
-</body>
-</html>
+<div>
+    <h1>Registro de Tareas</h1>
+  
+    <!-- Mostrar información del distrito y empleado -->
+    <div class="info-header">
+      <p>Distrito: {{ distrito.NombreDistrito }} ({{ distrito.ID_Distrito }})</p>
+      <p>Coordinador: {{ distrito.Coordinador }}</p>
+      <p>Empleado: {{ empleado.Nombre }} {{ empleado.Apellido }}</p>
+    </div>
+  
+    <!-- Tabla de Tareas -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+      <!-- Columna de Tareas -->
+      <ng-container matColumnDef="tarea">
+        <th mat-header-cell *matHeaderCellDef>Tarea</th>
+        <td mat-cell *matCellDef="let element">{{ element.tareaNombre }}</td>
+      </ng-container>
+    
+      <!-- Columna de Número de Tarea -->
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef>Número</th>
+        <td mat-cell *matCellDef="let element">{{ element.tareaNumero }}</td>
+      </ng-container>
+  
+      <!-- Columnas para cada mes -->
+      <ng-container *ngFor="let mes of meses" [matColumnDef]="mes">
+        <th mat-header-cell *matHeaderCellDef>{{ mes | titlecase }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.valoresMeses[mes] || '-' }}</td>
+      </ng-container>
+  
+      <!-- Header y Filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+  </div>
+  

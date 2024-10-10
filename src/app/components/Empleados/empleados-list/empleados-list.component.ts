@@ -3,19 +3,20 @@ import { Router } from '@angular/router';
 import { EmpleadosService } from '../../../services/Empleados/empleados.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-//import { Empleado } from '../../../interfaces/empleados';
+import { FilterEmpleadoPipe } from '../../../pipes/empleado/filter-empleado.pipe';
 
 
 
 @Component({
   selector: 'app-empleados-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FilterEmpleadoPipe],
   templateUrl: './empleados-list.component.html',
   styleUrl: './empleados-list.component.css'
 })
 export class EmpleadosListComponent implements OnInit {
   empleados: any[] = [];
+  searchText: string = '';
 
   constructor(private empleadosService: EmpleadosService, private router: Router) {}
 
@@ -36,11 +37,11 @@ export class EmpleadosListComponent implements OnInit {
   }
 
   editEmpleado(id: number): void {
-    this.router.navigate(['/empleados/edit', id]);
+    this.router.navigate(['/admin-panel/empleados/edit', id]);
   }
 
   createEmpleado(): void {
-    this.router.navigate(['./empleados/create']);
+    this.router.navigate(['/admin-panel/empleados/create']);
   }
 
   deleteEmpleado(id: number): void {
@@ -64,6 +65,5 @@ export class EmpleadosListComponent implements OnInit {
         console.error('Error fetching empleados', error);
       }
     );
-  }
-  
+  } 
 }

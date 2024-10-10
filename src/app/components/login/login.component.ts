@@ -12,7 +12,17 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LoginComponent {
 
+  constructor(private router: Router) {}
+
+  irALoginEmpleado() {
+    this.router.navigate(['/login-empleado']);
+  }
+
+  irALoginAdmin() {
+    this.router.navigate(['/login-admin']);
+  }
 }
+
 
 
 

@@ -81,13 +81,13 @@ export class IdentificarComponent implements OnInit{
     console.log('Empleado seleccionado:', empleadoSeleccionado);
     
     if (empleadoSeleccionado) {
-      this.authService.setEmpleado({
-        idEmpleado: empleadoSeleccionado.ID_Empleado,
-        nombreEmpleado: `${empleadoSeleccionado.Nombre} ${empleadoSeleccionado.Apellido}`,
-        idDistrito: this.selectedDistrito
-      });
-      // Verificar que el empleado se haya guardado correctamente
-      console.log('Empleado guardado en AuthService:', this.authService.getEmpleado());
+//      this.authService.setEmpleado({
+//        idEmpleado: empleadoSeleccionado.ID_Empleado,
+//        nombreEmpleado: `${empleadoSeleccionado.Nombre} ${empleadoSeleccionado.Apellido}`,
+//        idDistrito: this.selectedDistrito
+//      });
+//      // Verificar que el empleado se haya guardado correctamente
+//      console.log('Empleado guardado en AuthService:', this.authService.getEmpleado());
       
       // Redirige a la página con la tabla de datos
       console.log('Redirigiendo a /identificar/data...');

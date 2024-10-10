@@ -1,16 +1,30 @@
 <h1 class="title">Lista de Tareas</h1>
+
+<!-- Campo de búsqueda mejorado para tareas -->
+<div class="search-container">
+  <input 
+    type="text" 
+    placeholder="Buscar por descripción de la tarea..." 
+    [(ngModel)]="searchTerm" 
+    class="search-input"
+  />
+  <button class="clear-button" *ngIf="searchTerm" (click)="searchTerm = ''">✖</button>
+</div>
+
 <button (click)="createTarea()" class="create-button">Crear nueva tarea</button>
+
 <table class="tareas-table">
   <thead>
     <tr>
       <th>No.</th>
-      <th>Descripcion</th>
+      <th>Descripción</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let tarea of tareas">
-      <td>{{ tarea.ID_Tarea }}</td>
+    <!-- Aplicar el Pipe de búsqueda en tareas -->
+    <tr *ngFor="let tarea of tareas | filterTarea: searchTerm; let i = index">
+      <td>{{ i + 1 }}</td>
       <td>{{ tarea.Descripcion }}</td>
       <td>
         <button (click)="editTarea(tarea.ID_Tarea)" class="action-button">Editar</button>

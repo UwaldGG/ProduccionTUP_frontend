@@ -46,3 +46,29 @@ input {
 .submit-button:hover {
     background-color: #0056b3;
 }
+
+.error-message {
+    color: red; /* Color rojo para el mensaje de error */
+    margin-top: 10px; /* Espacio por encima del mensaje */
+  }
+  
+
+.success-message {
+    color: green;
+    background-color: #e6ffe6;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+.error-message {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+  }

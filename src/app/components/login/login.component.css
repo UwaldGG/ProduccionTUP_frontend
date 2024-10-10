@@ -1,18 +1,26 @@
-@use "../../../../variables.scss" as *;
-
-.login-form {
-  ::ng-deep .form-text {
-    color: var(--base-text-color-alpha);
-  }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
 }
-
-.reset-link {
+.container {
   text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  margin: 6px 0 50px 0;
-
-  a {
-    cursor: pointer;
-  }
+}
+.button {
+  display: inline-block;
+  padding: 20px 40px;
+  font-size: 24px;
+  margin: 10px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.button:hover {
+  background-color: #0056b3;
 }

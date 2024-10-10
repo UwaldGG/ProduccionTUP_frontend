@@ -7,20 +7,29 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  private loggedIn: boolean = false;
 
-  constructor() { }
+  // Simulación de credenciales
+  private adminUsername = 'admin';
+  private adminPassword = 'admin123';
 
-  private empleado: any = null;
+  constructor() {}
 
-  setEmpleado(empleadoData: any) {
-    this.empleado = empleadoData;
+  // Método de autenticación
+  login(username: string, password: string): boolean {
+    if (username === this.adminUsername && password === this.adminPassword) {
+      this.loggedIn = true;
+      return true;
+    }
+    this.loggedIn = false;
+    return false;
   }
 
-  getEmpleado() {
-    return this.empleado;
+  logout(): void {
+    this.loggedIn = false;
   }
 
-  isAuthenticated() {
-    return this.empleado !== null;
+  isAuthenticated(): boolean {
+    return this.loggedIn;
   }
 }

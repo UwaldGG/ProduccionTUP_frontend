@@ -13,6 +13,10 @@ export class DistritosService {
 
   constructor(private http: HttpClient) {}
 
+  getDistrito(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+  
   getDistritos(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
