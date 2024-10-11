@@ -47,12 +47,25 @@ export class EmpleadosCreateComponent implements OnInit {
   }
 
   createEmpleado(): void {
+    if (!this.newEmpleado.Nombre.trim() && !this.newEmpleado.Apellido.trim()) {
+      this.errorMessage = 'El nombre, apellido y distrito son obligatorios'; // Mensaje de error
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
+      return; // No continuar si el nombre está vacío
+    }
+
     this.empleadosService.createEmpleados(this.newEmpleado).subscribe(
       () => {
-        this.router.navigate(['/admin-panel/empleados/list'], { replaceUrl: true });
-
+        this.successMessage = '¡El empleado ha sido creado con éxito!';
+        this.newEmpleado = { Nombre: '', Apellido: '', fk_distrito: '' };
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/admin-panel/empleados/list'], { replaceUrl: true });
+        }, 2000);
       },
       (error) => {
+        this.errorMessage = 'Error al crear el empleado. Inténtalo de nuevo.';
         console.error('Error creating empleado: ', error);
       }
     );

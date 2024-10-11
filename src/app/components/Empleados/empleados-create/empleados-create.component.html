@@ -1,4 +1,15 @@
 <h1 class="title">Crear Empleado</h1>
+
+<!-- Mostrar el mensaje de éxito si existe -->
+<div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  
+  <!-- Mostrar el mensaje de error si existe -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
 <form (ngSubmit)="createEmpleado()" class="empleado-form">
     <div class="form-group">
         <label for="nombre">Nombre:</label>

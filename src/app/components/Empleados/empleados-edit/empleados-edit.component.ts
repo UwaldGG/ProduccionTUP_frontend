@@ -19,6 +19,9 @@ export class EmpleadosEditComponent implements OnInit{
   empleado: any;
   distritos: Distrito[] = []; // Para almacenar la lista de distritos
 
+  successMessage: string = '';
+  errorMessage: string = '';
+
   constructor(
     private empleadosService: EmpleadosService,
     private distritosService: DistritosService, // Inyectar el servicio de distritos
@@ -65,12 +68,25 @@ export class EmpleadosEditComponent implements OnInit{
 
   // Actualizar el empleado
   updateEmpleado(): void {
+    if (!this.empleado.Nombre.trim() && !this.empleado.Apellido.trim()) {
+      this.errorMessage = 'El nombre, apellido y distrito son obligatorios.';
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
+      return;
+    }
+
     this.empleadosService.updateEmpleados(this.empleado.ID_Empleado, this.empleado).subscribe(
       () => {
-        this.router.navigate(['/admin-panel/empleados/list'], { replaceUrl: true });
+        this.successMessage = '¡El empleado ha sido actualizado con éxito!';
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/admin-panel/empleados/list'], { replaceUrl: true });
+        }, 2000);
       },
       (error) => {
         console.error('Error updating empleado:', error);
+        this.errorMessage = 'Error al actualizar el empleado. Inténtalo de nuevo.';
       }
     );
   }

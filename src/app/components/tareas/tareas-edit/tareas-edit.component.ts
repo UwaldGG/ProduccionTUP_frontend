@@ -48,6 +48,9 @@ export class TareasEditComponent implements OnInit {
   updateTarea(): void {
     if (!this.tarea.Descripcion.trim()) {
       this.errorMessage = 'La descripción es obligatorio.'; // Mensaje de error
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
       return; // No continuar si la descripción está vacío
     }
 

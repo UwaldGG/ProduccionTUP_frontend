@@ -29,6 +29,9 @@ export class DistritosCreateComponent {
     // Validar que el nombre del distrito no esté vacío
     if (!this.newDistrito.NombreDistrito.trim()) {
       this.errorMessage = 'El nombre del distrito es obligatorio.'; // Mensaje de error
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
       return; // No continuar si el nombre está vacío
     }
 

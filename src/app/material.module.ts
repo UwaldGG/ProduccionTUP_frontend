@@ -13,7 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   imports: [
     MatButtonModule,
-    MatDialogModule, // Asegúrate de incluir MatDialogModule aquí
+    MatDialogModule,
     MatInputModule,
     MatCardModule,
     MatTableModule,
@@ -31,7 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule, // También inclúyelo en exports
+    MatDialogModule,
     MatCardModule,
   ]
 })

@@ -49,6 +49,8 @@ const routes: Routes = [
   { path: 'admin-panel/tareas/create', component: TareasCreateComponent, canActivate:[AuthGuard] },
   { path: 'admin-panel/tareas/edit/:id', component: TareasEditComponent, canActivate:[AuthGuard] },
 
+  //graficas
+
 
 ];
 

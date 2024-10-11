@@ -53,6 +53,9 @@ export class DistritosEditComponent implements OnInit {
   updateDistrito(): void {
     if (!this.distrito.NombreDistrito.trim()) {
       this.errorMessage = 'El nombre del distrito es obligatorio.'; // Mensaje de error
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
       return; // No continuar si el nombre está vacío
     }
 

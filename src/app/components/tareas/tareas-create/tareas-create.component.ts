@@ -22,11 +22,14 @@ export class TareasCreateComponent {
   constructor(private tareasService: TareasService, private router: Router) {}
 
   createTarea(): void {
-
     if (!this.newTarea.Descripcion.trim()) {
       this.errorMessage = 'La descripción es obligatorio.'; // Mensaje de error
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
       return; // No continuar si la descripción está vacío
     }
+
     this.tareasService.createTarea(this.newTarea).subscribe(
       () => {
         this.successMessage = '¡La nueva tarea ha sio creado con éxito!';

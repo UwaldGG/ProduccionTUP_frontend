@@ -98,5 +98,10 @@ export class DistritosListComponent implements OnInit {
       }
     });
   }
+
+  goToMainPanel(): void {
+    this.router.navigate(['/admin-panel'], {replaceUrl: true}); // Ajusta la ruta según tu estructura de rutas
+  }
+
 }
 
