@@ -108,4 +108,13 @@ export class EmpleadosService {
     return this.http.get(`${this.apiUrl}/por-distrito/${distritoId}`); // Asegúrate de que esta ruta esté bien configurada
   }
 
+  // Obtener empleados por distrito
+  getEmpleadosPorDistrito2(distritoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/empleado-con-distrito/${distritoId}`);
+  }
+
+  getTareasPorEmpleado(idEmpleado: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/tareas/empleado/${idEmpleado}`);
+  }  
+
 }

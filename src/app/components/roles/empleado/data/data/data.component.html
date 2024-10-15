@@ -1,38 +1,48 @@
 <div>
-    <h1>Registro de Tareas</h1>
-  
-    <!-- Mostrar información del distrito y empleado -->
-    <div class="info-header">
-      <p>Distrito: {{ distrito.NombreDistrito }} ({{ distrito.ID_Distrito }})</p>
-      <p>Coordinador: {{ distrito.Coordinador }}</p>
-      <p>Empleado: {{ empleado.Nombre }} {{ empleado.Apellido }}</p>
-    </div>
-  
-    <!-- Tabla de Tareas -->
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      
-      <!-- Columna de Tareas -->
-      <ng-container matColumnDef="tarea">
-        <th mat-header-cell *matHeaderCellDef>Tarea</th>
-        <td mat-cell *matCellDef="let element">{{ element.tareaNombre }}</td>
-      </ng-container>
-    
-      <!-- Columna de Número de Tarea -->
-      <ng-container matColumnDef="numero">
-        <th mat-header-cell *matHeaderCellDef>Número</th>
-        <td mat-cell *matCellDef="let element">{{ element.tareaNumero }}</td>
-      </ng-container>
-  
-      <!-- Columnas para cada mes -->
-      <ng-container *ngFor="let mes of meses" [matColumnDef]="mes">
-        <th mat-header-cell *matHeaderCellDef>{{ mes | titlecase }}</th>
-        <td mat-cell *matCellDef="let element">{{ element.valoresMeses[mes] || '-' }}</td>
-      </ng-container>
-  
-      <!-- Header y Filas -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-    </table>
+  <h1>Registro de Tareas</h1>
+
+  <!-- Mostrar información del distrito y coordinador -->
+  <div class="info-header">
+    <p>Distrito: {{ distrito?.NombreDistrito }}</p>
+    <p>Coordinador: {{ distrito?.Coordinador }}</p>
   </div>
+
+  <!-- Lista desplegable de empleados -->
+<!-- Lista desplegable de empleados -->
+<div>
+  <label for="empleado">Selecciona tu nombre:</label>
+  <select [(ngModel)]="empleadoSeleccionado" name="empleado" (ngModelChange)="onEmpleadoSeleccionado()" title="Selecciona tu nombre">
+    <option *ngFor="let empleado of empleados" [value]="empleado.ID_Empleado.toString()">
+      {{ empleado.Nombre }} {{ empleado.Apellido }}
+    </option>
+  </select>
+</div>
+
   
+  <!-- Tabla de Tareas -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+    <!-- Columna de Tareas -->
+    <ng-container matColumnDef="tarea">
+      <th mat-header-cell *matHeaderCellDef>Tarea</th>
+      <td mat-cell *matCellDef="let element">{{ element.tareaNombre }}</td>
+    </ng-container>
+  
+    <!-- Columna de Número de Tarea -->
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">{{ element.tareaNumero }}</td>
+    </ng-container>
+
+    <!-- Columnas para cada mes -->
+    <ng-container *ngFor="let mes of meses" [matColumnDef]="mes">
+      <th mat-header-cell *matHeaderCellDef>{{ mes | titlecase }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.valoresMeses[mes] || '-' }}</td>
+    </ng-container>
+  
+    <!-- Header y Filas -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  </table>
+</div>

@@ -28,7 +28,7 @@ const routes: Routes = [
 
   //Login de empleados y tablas
   { path: 'login-empleado', component: IdentificarComponent },
-  { path: 'data', component: DataComponent },
+  { path: 'data/:id', component: DataComponent },
 
   //Login de admin y panel
   { path: 'login-admin', component: LoginAdminComponent },

@@ -1,39 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { EmpleadosService } from '../../../../../services/Empleados/empleados.service';  // Servicio para cargar empleados
-import { DistritosService } from '../../../../../services/distritos/distritos.service';  // Servicio para cargar distritos
-import { TareasService } from '../../../../../services/tareas/tareas.service';  // Servicio para cargar tareas
-import { AuthService } from '../../../../../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EmpleadosService } from '../../../../../services/Empleados/empleados.service';
+import { DistritosService } from '../../../../../services/distritos/distritos.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-data',
   standalone: true,
-  imports: [FormsModule, 
-            CommonModule,
-            MatTableModule,
-            MatPaginatorModule,
-            MatSortModule,
-            MatIconModule,
-            MatButtonModule],
+  imports: [FormsModule, CommonModule, MatTableModule],
   templateUrl: './data.component.html',
-  styleUrl: './data.component.css',
+  styleUrls: ['./data.component.css'],
 })
 
 export class DataComponent implements OnInit {
-  empleado: any; // Datos del empleado
-  distrito: any; // Datos del distrito
-  dataSource = new MatTableDataSource<any>(); // Datos para la tabla
-  meses: string[] = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-  displayedColumns: string[] = ['numero', 'tarea', ...this.meses]; // Columnas para mostrar
+  empleadoSeleccionado: number = 0; // Inicialización
+  distrito: any;
+  empleados: any[] = [];
+  tareas: any[] = []; // Lista de tareas
+  dataSource = new MatTableDataSource<any>();
+  meses: string[] = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+  displayedColumns: string[] = ['numero', 'tarea', ...this.meses];
 
   constructor(
     private empleadosService: EmpleadosService,
@@ -42,40 +30,51 @@ export class DataComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const distritoId: string = this.route.snapshot.paramMap.get('id') || '';
+    const distritoIdNumber = Number(distritoId);
+  
+    if (!isNaN(distritoIdNumber)) {
+      this.distritosService.getDistrito(distritoId).subscribe((distritoData) => {
+        this.distrito = distritoData;
+      });
+  
+      this.empleadosService.getEmpleadosPorDistrito2(distritoIdNumber).subscribe((empleados) => {
+        this.empleados = empleados;
+      });
+    }
+  }
 
-    const empleadoId: string = this.route.snapshot.paramMap.get('ID_Empleado') || '';
-    this.empleadosService.getEmpleado(empleadoId).subscribe(empleado => {
-    this.empleado = empleado;
-    });
+  onEmpleadoSeleccionado(): void {
+    if (this.empleadoSeleccionado > 0) {
+      // Obtener las tareas para el empleado seleccionado
+      this.empleadosService.getTareasPorEmpleado(this.empleadoSeleccionado).subscribe((tareas) => {
+        this.tareas = tareas;
+        this.dataSource.data = this.formatearTareasParaTabla(tareas);
+      });
+    }
+  }
 
-
-    const distritoId: string = this.route.snapshot.paramMap.get('ID_Distrito') || '';
-    this.distritosService.getDistrito(distritoId).subscribe(distrito => {
-    this.distrito = distrito;
-    });
-
-
-    // Obtener datos del empleado y del distrito
-    this.empleadosService.getEmpleado(empleadoId).subscribe((empleadoData) => {
-      this.empleado = empleadoData;
-    });
-
-    this.distritosService.getDistrito(distritoId).subscribe((distritoData) => {
-      this.distrito = distritoData;
-    });
-
-    // Obtener valores de las tareas del empleado para la tabla
-    this.empleadosService.getTareasEmpleado(empleadoId).subscribe((tareas) => {
-      const tareasConValores = tareas.map((tarea: any) => ({
-        tareaNombre: tarea.Descripcion,
-        tareaNumero: tarea.ID_Tarea,
+  formatearTareasParaTabla(tareas: any[]): any[] {
+    // Formatear las tareas para que se ajusten a la tabla, incluyendo los valores de cada mes
+    return tareas.map((tarea: any) => {
+      return {
+        tareaNumero: tarea.numero,
+        tareaNombre: tarea.nombre,
         valoresMeses: {
-          enero: tarea.enero,
-          febrero: tarea.febrero,
-          // Repite para todos los meses
+          ENE: tarea.ENE,
+          FEB: tarea.FEB,
+          MAR: tarea.MAR,
+          ABR: tarea.ABR,
+          MAY: tarea.MAY,
+          JUN: tarea.JUN,
+          JUL: tarea.JUL,
+          AGO: tarea.AGO,
+          SEP: tarea.SEP,
+          OCT: tarea.OCT,
+          NOV: tarea.NOV,
+          DIC: tarea.DIC,
         },
-      }));
-      this.dataSource.data = tareasConValores;
+      };
     });
   }
 }

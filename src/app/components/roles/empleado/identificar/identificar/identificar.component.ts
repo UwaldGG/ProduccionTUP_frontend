@@ -32,7 +32,7 @@ export class IdentificarComponent implements OnInit {
   getDistritos(): void {
     this.distritosService.getDistritos().subscribe(
       (data: any[]) => {
-        this.distritos = data.filter(distrito => distrito.contraseña); // Mostrar solo distritos con contraseña
+        this.distritos = data.filter(distrito => distrito.Contrasenia); // Mostrar solo distritos con contraseña
       },
       (error) => {
         console.error('Error fetching distritos', error);
@@ -42,20 +42,23 @@ export class IdentificarComponent implements OnInit {
 
   onLogin(): void {
     if (this.selectedDistrito && this.password) {
-    this.authService.login(this.selectedDistrito, this.password).subscribe(
-        (isValid: boolean) => {
-          if (isValid) {
-            // Redirigir si la autenticación es exitosa
-            this.router.navigate(['data']);
+      console.log(this.selectedDistrito);
+      this.authService.verifyPassword(this.selectedDistrito, this.password).subscribe(
+        (isAuthenticated) => {
+          if (isAuthenticated) {
+            // Redirigir a la página con la tabla de datos y pasar el distritoId
+            this.router.navigate(['data', this.selectedDistrito]);
           } else {
-            // Mostrar error de contraseña inválida
-            this.isInvalidPassword = true;
+            console.log('Contraseña incorrecta.');
           }
-        },
-        (error) => {
-          console.error('Error during login', error);
         }
       );
+    } else {
+      console.log('Debe seleccionar un distrito y proporcionar la contraseña.');
     }
   }
+  
 }
+
+
+
