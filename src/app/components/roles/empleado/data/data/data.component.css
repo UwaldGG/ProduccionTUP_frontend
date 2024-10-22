@@ -1,11 +1,107 @@
-.mat-elevation-z8 {
-  margin: 20px;
+
+
+/* Select de empleado */
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
+/* Tabla de tareas */
 table {
   width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #007bff;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: 14px;
+}
+
+/* Estilo para inputs de edición */
+input[type="number"] {
+  width: 40px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Estilo al pasar el mouse sobre filas */
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilo de columnas de meses */
+.ng-container matColumnDef {
+  text-align: center;
+}
+
+/* Estilo para los botones (si se agregan en el futuro) */
 button {
-  margin-left: 5px;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+/* Encabezado mejorado */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Información del distrito y coordinador mejorada */
+.info-header {
+  background: linear-gradient(90deg, #00c6ff, #007bff);
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-header p {
+  margin: 10px 0;
+  font-weight: 500;
 }

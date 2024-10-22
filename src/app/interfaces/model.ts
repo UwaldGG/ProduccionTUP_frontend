@@ -30,3 +30,34 @@ export interface Tarea {
 }
 
 
+export interface TareaTabla {
+  tareaNumero: number;
+  tareaNombre: string;
+  valoresMeses: {
+    ENE: any;
+    FEB: any;
+    MAR: any;
+    ABR: any;
+    MAY: any;
+    JUN: any;
+    JUL: any;
+    AGO: any;
+    SEP: any;
+    OCT: any;
+    NOV: any;
+    DIC: any;
+  };
+}
+
+
+
+export interface DatosTareaEmpleado {
+  fk_tarea: number;
+  valoresMeses: { [key: string]: number }; 
+}
+
+export interface DatoActualizar {
+  fk_tarea: number;
+  mes: number;
+  cantidad: number;
+}

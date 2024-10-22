@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class TareasService {
   private apiUrl = 'http://localhost:3000/api/v1/tareas';
+  private apiUrl2 = 'http://localhost:3000/api/v1/empleados_tareas';
 
   constructor(private http: HttpClient) {}
 
@@ -36,5 +37,13 @@ export class TareasService {
   // Obtener registros de tareas mensuales para empleados
   getRegistros(): Observable<any> {
     return this.http.get(`${this.apiUrl}/registros`);  // Supone que existe el endpoint '/registros'
+  }
+
+  getTareasPorEmpleado(idEmpleado: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/empleado/${idEmpleado}`);
+  }  
+
+  actualizarValorTarea(idDato: number, mes: number, cantidad: number) {
+    return this.http.put(`${this.apiUrl2}/empleados-tareas/${idDato}`, { mes, cantidad });
   }
 }
