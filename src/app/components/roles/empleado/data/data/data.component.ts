@@ -70,6 +70,7 @@ export class DataComponent implements OnInit {
         this.tareasService.getTareasPorEmpleado(this.empleadoSeleccionado).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
           this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
           this.dataSource.data = this.tareas;  // Asignación correcta
+          console.log('datasource.data', this.dataSource.data);
         });
       });
     }
@@ -77,28 +78,51 @@ export class DataComponent implements OnInit {
   
   
   formatearTareasParaTabla(tareas: Tarea[], datosTareasEmpleado: DatosTareaEmpleado[]): Tarea[] {
+    console.log('datosTareasEmpleados', datosTareasEmpleado);  // Verifica la estructura de datosTareasEmpleado
+    console.log(tareas);  // Verifica las tareas que se están procesando
+
     return tareas.map(tarea => {
-      // Filtra los datos del empleado para la tarea actual usando la propiedad ID_Tarea
-      const datosTarea = datosTareasEmpleado.filter(dato => dato.fk_tarea === tarea.ID_Tarea);
-    
-      // Inicializamos el objeto de valores de meses
-      const valoresMeses: { [key: string]: number } = {};
-    
-      if (datosTarea.length > 0) {
-        const datosMeses = datosTarea[0].valoresMeses;
-    
-        // Mapear los valores de cada mes en valoresMeses
-        for (let mes = 1; mes <= 12; mes++) {
-          valoresMeses[mes.toString()] = datosMeses[mes.toString()] || 0;
+        // Busca las tareas del empleado que coinciden con la tarea actual
+        const datosTarea = datosTareasEmpleado.find(dato => dato.fk_tarea === tarea.ID_Tarea);
+        console.log(datosTarea);
+        console.log(`Datos de la tarea para ID_Tarea ${tarea.ID_Tarea}:`, datosTarea);  // Verifica si encuentra datos
+
+        const valoresMeses: { [key: string]: number } = {};
+
+        if (datosTarea) {
+            // Aquí obtenemos los valores de los meses del empleado
+            for (const [mesNumero, cantidad] of Object.entries(datosTarea.valoresMeses)) {
+                const mesNombre = this.mapearNumeroAMes(Number(mesNumero));
+                valoresMeses[mesNombre] = cantidad;
+            }
+
+            console.log(`Valores para la tarea ${tarea.Descripcion}:`, valoresMeses);  // Verifica los valores de los meses
+
+            return {
+                ...tarea,
+                valoresMeses
+            };
         }
-      }
-    
-      return {
-        ...tarea,
-        valoresMeses  // Agregamos el objeto de meses a la tarea
-      };
+
+        // Si no hay datos, devolvemos la tarea sin cambios
+        console.log(`No se encontraron datos para la tarea ${tarea.Descripcion}`);
+        return tarea;
     });
+}
+
+  
+  // Función para mapear número de mes a nombre
+  private mapearNumeroAMes(mesNumero: number): string {
+    const mesesMap: { [key: number]: string } = {
+      1: 'ENE', 2: 'FEB', 3: 'MAR', 4: 'ABR',
+      5: 'MAY', 6: 'JUN', 7: 'JUL', 8: 'AGO',
+      9: 'SEP', 10: 'OCT', 11: 'NOV', 12: 'DIC'
+    };
+  
+    return mesesMap[mesNumero] || ''; // Devolverá un string vacío si no se encuentra el mes
   }
+  
+  
   
   habilitarEdicion(indiceMes: number): void {
     this.columnasEditables = this.columnasEditables.map((_, i) => i === indiceMes);
@@ -155,8 +179,7 @@ export class DataComponent implements OnInit {
     // Deshabilitar la edición después de guardar
     this.columnasEditables[this.meses.indexOf(mes)] = false;
   }
-  
-  
+
   
     
 }
