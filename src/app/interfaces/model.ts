@@ -52,7 +52,7 @@ export interface TareaTabla {
 
 
 export interface DatosTareaEmpleado {
-  fk_tarea: number;
+  tareaId: number;
   valoresMeses: { [key: string]: number }; 
 }
 

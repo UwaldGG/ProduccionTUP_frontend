@@ -7,7 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { TareasService } from '../../../../../services/tareas/tareas.service';
 import { DataService } from '../../../../../services/data/data.service';
-import { DatoActualizar } from '../../../../../interfaces/model';
+import { DatoActualizar, DatosTareaEmpleado, Empleado } from '../../../../../interfaces/model';
 
 // Interfaz para definir la estructura de las tareas
 interface Tarea {
@@ -15,12 +15,6 @@ interface Tarea {
   Descripcion: string;
   valoresMeses: { [key: string]: number }; // Los meses se representan como claves de string
 }
-
-interface DatosTareaEmpleado {
-  fk_tarea: number;
-  valoresMeses: { [key: string]: number }; 
-}
-
 
 @Component({
   selector: 'app-data',
@@ -32,8 +26,9 @@ interface DatosTareaEmpleado {
 export class DataComponent implements OnInit {
   empleadoSeleccionado: number = 0;
   distrito: any;
-  empleados: any[] = [];
+  empleados: Empleado[] = [];
   tareas: Tarea[] = [];
+  datosTareasEmpleados: DatosTareaEmpleado[] = [];
   dataSource = new MatTableDataSource<Tarea>();
   meses: string[] = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
   displayedColumns: string[] = ['numero', 'tarea', ...this.meses];
@@ -68,60 +63,50 @@ export class DataComponent implements OnInit {
       this.tareasService.getTareas().subscribe((todasLasTareas) => {
         this.tareas = todasLasTareas;
         this.tareasService.getTareasPorEmpleado(this.empleadoSeleccionado).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
+          console.log('datosTareasEmpleados', datosTareasEmpleado);
           this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
+          console.log('Tareas después de formatear:', this.tareas);
           this.dataSource.data = this.tareas;  // Asignación correcta
-          console.log('datasource.data', this.dataSource.data);
+          console.log('Tareas asignadas al dataSource:', this.dataSource.data);
         });
       });
     }
   }
-  
-  
+
+
   formatearTareasParaTabla(tareas: Tarea[], datosTareasEmpleado: DatosTareaEmpleado[]): Tarea[] {
-    console.log('datosTareasEmpleados', datosTareasEmpleado);  // Verifica la estructura de datosTareasEmpleado
-    console.log(tareas);  // Verifica las tareas que se están procesando
-
     return tareas.map(tarea => {
-        // Busca las tareas del empleado que coinciden con la tarea actual
-        const datosTarea = datosTareasEmpleado.find(dato => dato.fk_tarea === tarea.ID_Tarea);
-        console.log(datosTarea);
-        console.log(`Datos de la tarea para ID_Tarea ${tarea.ID_Tarea}:`, datosTarea);  // Verifica si encuentra datos
-
-        const valoresMeses: { [key: string]: number } = {};
-
-        if (datosTarea) {
-            // Aquí obtenemos los valores de los meses del empleado
-            for (const [mesNumero, cantidad] of Object.entries(datosTarea.valoresMeses)) {
-                const mesNombre = this.mapearNumeroAMes(Number(mesNumero));
-                valoresMeses[mesNombre] = cantidad;
-            }
-
-            console.log(`Valores para la tarea ${tarea.Descripcion}:`, valoresMeses);  // Verifica los valores de los meses
-
-            return {
-                ...tarea,
-                valoresMeses
-            };
-        }
-
-        // Si no hay datos, devolvemos la tarea sin cambios
+      // Filtra los datos de la tarea correspondiente
+      const datosTarea = datosTareasEmpleado.find(dato => dato.tareaId === tarea.ID_Tarea);
+  
+      // Crear un objeto con los valores de los meses
+      const valoresMeses: { [key: string]: number } = {};
+  
+      if (datosTarea) {
+        console.log(`Datos para la tarea ${tarea.Descripcion}:`, datosTarea);
+        
+        // Asegúrate de que los meses se están mapeando correctamente
+        Object.keys(datosTarea.valoresMeses).forEach(mesNumero => {
+          const mesNombre = this.mapearNumeroAMes(Number(mesNumero));
+          valoresMeses[mesNombre] = datosTarea.valoresMeses[mesNumero]; // Asegúrate de que esta línea está correctamente asignando el valor
+        });
+      } else {
         console.log(`No se encontraron datos para la tarea ${tarea.Descripcion}`);
-        return tarea;
+      }
+  
+      return {
+        ...tarea,
+        valoresMeses: valoresMeses // Asegúrate de que se está asignando correctamente
+      };
     });
-}
+  }
 
   
   // Función para mapear número de mes a nombre
   private mapearNumeroAMes(mesNumero: number): string {
-    const mesesMap: { [key: number]: string } = {
-      1: 'ENE', 2: 'FEB', 3: 'MAR', 4: 'ABR',
-      5: 'MAY', 6: 'JUN', 7: 'JUL', 8: 'AGO',
-      9: 'SEP', 10: 'OCT', 11: 'NOV', 12: 'DIC'
-    };
-  
-    return mesesMap[mesNumero] || ''; // Devolverá un string vacío si no se encuentra el mes
+    const meses = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+    return meses[mesNumero - 1] || ''; // Restamos 1 porque los meses están indexados desde 0
   }
-  
   
   
   habilitarEdicion(indiceMes: number): void {
