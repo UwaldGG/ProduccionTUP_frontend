@@ -106,3 +106,14 @@ select {
     font-weight: 500;
   }
   
+  .selected-year {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #00796b;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }

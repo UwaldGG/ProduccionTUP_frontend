@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TareasService } from '../../../../../services/tareas/tareas.service';
 import { DataService } from '../../../../../services/data/data.service';
 import { DatoActualizar, DatosTareaEmpleado, Empleado } from '../../../../../interfaces/model';
+import { ConfirmDialogsComponent } from '../../../../dialogs/confirm/confirm-dialogs/confirm-dialogs.component';
+import { MatDialog } from '@angular/material/dialog';
 
 // Interfaz para definir la estructura de las tareas
 interface Tarea {
@@ -36,9 +38,9 @@ export class DataComponent implements OnInit {
   columnasEditables: boolean[] = Array(12).fill(false);
   distritoid2: number = 0;
   empleadoid2: number = 0;
+  anios: number[] = [2024, 2025]; //lista de años
+  isEditing: boolean = false;
 
-
-  anios: number[] = []; // Lista para almacenar los años
 
   constructor(
     private empleadosService: EmpleadosService,
@@ -46,6 +48,7 @@ export class DataComponent implements OnInit {
     private route: ActivatedRoute,
     private tareasService: TareasService,
     private dataService: DataService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -65,16 +68,30 @@ export class DataComponent implements OnInit {
     }
   }
 
+  onAnioSeleccionado(): void {
+    console.log('Año seleccionado:', this.anioSeleccionado);
+    // Limpiar selección de empleado y datos al cambiar de año
+    this.empleadoSeleccionado = 0;
+    this.tareas = [];
+    this.dataSource.data = [];
+    if(this.anioSeleccionado && this.empleadoSeleccionado){
+      this.cargarTareasPorEmpleadoYAnio(this.empleadoSeleccionado, this.anioSeleccionado);
+    }
+  }
+
   onEmpleadoSeleccionado(): void {
-    // Reiniciar las columnas editables al seleccionar un nuevo empleado
+    console.log("Empleado seleccionado", this.empleadoSeleccionado);
     this.columnasEditables = Array(12).fill(false);
-  
-    if (this.empleadoSeleccionado > 0) {
-      this.tareasService.getTareas().subscribe((todasLasTareas) => {
+    if(this.empleadoSeleccionado > 0 && this.anioSeleccionado){
+      this.cargarTareasPorEmpleadoYAnio(this.empleadoSeleccionado, this.anioSeleccionado);
+    }
+  }
+
+private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
+      this.tareasService.getTareas().subscribe((todasLasTareas: Tarea[]) => {
         this.tareas = todasLasTareas;
-        this.tareasService.getTareasPorEmpleado(this.empleadoSeleccionado).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
-          this.empleadoid2 = this.empleadoSeleccionado;
-          console.log(this.empleadoSeleccionado);
+        this.dataService.getTareasPorEmpleadoYAnio(empleadoId, anio).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
+          this.empleadoid2 = empleadoId;
           console.log('datosTareasEmpleados', datosTareasEmpleado);
           this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
           console.log('Tareas después de formatear:', this.tareas);
@@ -83,26 +100,23 @@ export class DataComponent implements OnInit {
         });
       });
     }
-  }
   
-
 
   formatearTareasParaTabla(tareas: Tarea[], datosTareasEmpleado: DatosTareaEmpleado[]): Tarea[] {
     return tareas.map(tarea => {
       // Filtra los datos de la tarea correspondiente
-      const datosTarea = datosTareasEmpleado.find(dato => dato.tareaId === tarea.ID_Tarea);
+      const datosTarea = datosTareasEmpleado.filter(dato => dato.fk_tarea === tarea.ID_Tarea);
   
       // Crear un objeto con los valores de los meses
       const valoresMeses: { [key: string]: number } = {};
   
-      if (datosTarea) {
+      if (datosTarea.length > 0) {
         console.log(`Datos para la tarea ${tarea.Descripcion}:`, datosTarea);
-        
-        // Asegúrate de que los meses se están mapeando correctamente
-        Object.keys(datosTarea.valoresMeses).forEach(mesNumero => {
-          const mesNombre = this.mapearNumeroAMes(Number(mesNumero));
-          valoresMeses[mesNombre] = datosTarea.valoresMeses[mesNumero]; // Asegúrate de que esta línea está correctamente asignando el valor
-        });
+
+        datosTarea.forEach(dato => {
+          const mesNombre = this.mapearNumeroAMes(dato.mes);
+          valoresMeses[mesNombre] = dato.cantidad;
+        })
       } else {
         console.log(`No se encontraron datos para la tarea ${tarea.Descripcion}`);
       }
@@ -121,30 +135,60 @@ export class DataComponent implements OnInit {
     return meses[mesNumero - 1] || ''; // Restamos 1 porque los meses están indexados desde 0
   }
   
-  
   habilitarEdicion(indiceMes: number): void {
-    this.columnasEditables = this.columnasEditables.map((_, i) => i === indiceMes);
+    // Verificar si ya hay otra columna en edición
+    const otraColumnaEnEdicion = this.columnasEditables.some((editable, i) => editable && i !== indiceMes);
+    if (otraColumnaEnEdicion) {
+      alert("Solo puedes editar una columna a la vez.");
+      return;
+    }
+  
+    const dialogRef = this.dialog.open(ConfirmDialogsComponent, {
+      data: {
+        title: 'Confirmar Edición',
+        message: `¿Está seguro de que desea editar ${this.meses[indiceMes]}?`,
+      },
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        // Configura la edición para la columna seleccionada
+        this.columnasEditables = this.columnasEditables.map((_, i) => i === indiceMes);
+      }
+    });
   }
   
-
-
-  guardarDatosPorMes(mes: string): void {
-    // Validar que todos los campos de tareas tengan un valor numérico
-    const tareasSinDatos = this.dataSource.data.filter(tarea => 
-      tarea.valoresMeses[mes] === null || 
-      tarea.valoresMeses[mes] === undefined || 
-      isNaN(tarea.valoresMeses[mes])
-    );
+  toggleEdit() {
+    this.isEditing = !this.isEditing;
+  }
   
-    if (tareasSinDatos.length > 0) {
-      alert('Por favor, completa todos los campos con datos numéricos antes de guardar.');
-      return; // Detener la ejecución si hay campos vacíos
-    }
+  guardarDatosPorMes(mes: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogsComponent, {
+      data: {
+        title: 'Confirmar guardado',
+        message: `¿Están bien sus datos para guardar?`,
+      },
+    });
+    
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        // Validar que todos los campos de tareas tengan un valor numérico
+        const tareasSinDatos = this.dataSource.data.filter(tarea => 
+        tarea.valoresMeses[mes] === null || 
+        tarea.valoresMeses[mes] === undefined || 
+        isNaN(tarea.valoresMeses[mes])
+        );
+  
+        if (tareasSinDatos.length > 0) {
+          alert('Por favor, completa todos los campos con datos numéricos antes de guardar.');
+          return; // Detener la ejecución si hay campos vacíos
+        }
   
     const datosAEnviar: DatoActualizar[] = this.dataSource.data.map((tarea: Tarea) => ({
       fk_distrito: this.distritoid2,
       fk_empleado: this.empleadoSeleccionado,
       fk_tarea: tarea.ID_Tarea,
+      anio: this.anioSeleccionado,
       mes: this.meses.indexOf(mes) + 1,
       cantidad: tarea.valoresMeses[mes]
     }));
@@ -162,10 +206,9 @@ export class DataComponent implements OnInit {
   
     // Deshabilitar la edición después de guardar
     this.columnasEditables[this.meses.indexOf(mes)] = false;
+      }
+    })
+
   }
   
-  
-  
-  
-    
-}
+}  

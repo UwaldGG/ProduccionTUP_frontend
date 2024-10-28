@@ -27,6 +27,12 @@ export class DataService {
     actualizarDatos2(datos: DatoActualizar[]): Observable<any> {
       return this.http.post(`${this.apiUrl2}/actualizar-datos`, datos);
     }
-    
+
+// Ejemplo de un método en el servicio para obtener tareas
+    getTareasPorEmpleadoYAnio(empleadoId: number, anio: number): Observable<DatosTareaEmpleado[]> {
+      return this.http.get<DatosTareaEmpleado[]>(`${this.apiUrl2}/empleado/${empleadoId}/year/${anio}`);
+    }
+
+
    
 }
