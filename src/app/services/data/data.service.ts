@@ -24,8 +24,9 @@ export class DataService {
       return this.http.put(url, datos); // Utilizamos PUT para actualizar
     }
 
-    actualizarDatos2(datos: DatoActualizar): Observable<any> {
+    actualizarDatos2(datos: DatoActualizar[]): Observable<any> {
       return this.http.post(`${this.apiUrl2}/actualizar-datos`, datos);
     }
+    
    
 }

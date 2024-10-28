@@ -25,6 +25,7 @@ interface Tarea {
 })
 export class DataComponent implements OnInit {
   empleadoSeleccionado: number = 0;
+  anioSeleccionado: number | null = null;
   distrito: any;
   empleados: Empleado[] = [];
   tareas: Tarea[] = [];
@@ -33,6 +34,11 @@ export class DataComponent implements OnInit {
   meses: string[] = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
   displayedColumns: string[] = ['numero', 'tarea', ...this.meses];
   columnasEditables: boolean[] = Array(12).fill(false);
+  distritoid2: number = 0;
+  empleadoid2: number = 0;
+
+
+  anios: number[] = []; // Lista para almacenar los años
 
   constructor(
     private empleadosService: EmpleadosService,
@@ -45,6 +51,7 @@ export class DataComponent implements OnInit {
   ngOnInit(): void {
     const distritoId: string = this.route.snapshot.paramMap.get('id') || '';
     const distritoIdNumber = Number(distritoId);
+    this.distritoid2 = distritoIdNumber;
     console.log(distritoIdNumber);
 
     if (!isNaN(distritoIdNumber)) {
@@ -59,10 +66,15 @@ export class DataComponent implements OnInit {
   }
 
   onEmpleadoSeleccionado(): void {
+    // Reiniciar las columnas editables al seleccionar un nuevo empleado
+    this.columnasEditables = Array(12).fill(false);
+  
     if (this.empleadoSeleccionado > 0) {
       this.tareasService.getTareas().subscribe((todasLasTareas) => {
         this.tareas = todasLasTareas;
         this.tareasService.getTareasPorEmpleado(this.empleadoSeleccionado).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
+          this.empleadoid2 = this.empleadoSeleccionado;
+          console.log(this.empleadoSeleccionado);
           console.log('datosTareasEmpleados', datosTareasEmpleado);
           this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
           console.log('Tareas después de formatear:', this.tareas);
@@ -72,6 +84,7 @@ export class DataComponent implements OnInit {
       });
     }
   }
+  
 
 
   formatearTareasParaTabla(tareas: Tarea[], datosTareasEmpleado: DatosTareaEmpleado[]): Tarea[] {
@@ -113,58 +126,46 @@ export class DataComponent implements OnInit {
     this.columnasEditables = this.columnasEditables.map((_, i) => i === indiceMes);
   }
   
-  guardarDato(fk_tarea: number, mes: string): void {
-    const cantidad = this.tareas.find(tarea => tarea.ID_Tarea === fk_tarea)?.valoresMeses[mes];
-  
-    if (cantidad !== undefined) {
-      const datosAEnviar: DatoActualizar = {
-        fk_tarea,
-        mes: +mes,  // Asegúrate de convertir `mes` a número
-        cantidad,
-      };
-  
-      this.dataService.actualizarDatos2(datosAEnviar).subscribe(
-        response => {
-          console.log('Datos actualizados:', response);
-          // Deshabilitar la edición después de guardar
-          this.columnasEditables = Array(12).fill(false); // Deshabilitar todas las columnas
-          alert('Datos guardados exitosamente');
-        },
-        error => {
-          console.error('Error al actualizar el dato:', error);
-        }
-      );
-    }
-  }
+
 
   guardarDatosPorMes(mes: string): void {
-    // Accede a los datos del dataSource
-    const tareas = this.dataSource.data; // Aquí obtienes el array de datos
+    // Validar que todos los campos de tareas tengan un valor numérico
+    const tareasSinDatos = this.dataSource.data.filter(tarea => 
+      tarea.valoresMeses[mes] === null || 
+      tarea.valoresMeses[mes] === undefined || 
+      isNaN(tarea.valoresMeses[mes])
+    );
   
-    tareas.forEach((tarea: any) => { // Asegúrate de definir el tipo adecuado
-      const cantidad = tarea.valoresMeses[mes];
-      
-      const datosAEnviar = {
-        fk_tarea: tarea.ID_Tarea,
-        mes: +mes,  // Asegúrate de que 'mes' sea un número
-        cantidad,
-      };
+    if (tareasSinDatos.length > 0) {
+      alert('Por favor, completa todos los campos con datos numéricos antes de guardar.');
+      return; // Detener la ejecución si hay campos vacíos
+    }
   
-      this.dataService.actualizarDatos2(datosAEnviar).subscribe(
-        response => {
-          console.log('Datos actualizados:', response);
-        },
-        error => {
-          console.error('Error al actualizar el dato:', error);
-          alert('Hubo un error al guardar los datos. Inténtelo de nuevo.');
-        }
-      );
-    });
-    
+    const datosAEnviar: DatoActualizar[] = this.dataSource.data.map((tarea: Tarea) => ({
+      fk_distrito: this.distritoid2,
+      fk_empleado: this.empleadoSeleccionado,
+      fk_tarea: tarea.ID_Tarea,
+      mes: this.meses.indexOf(mes) + 1,
+      cantidad: tarea.valoresMeses[mes]
+    }));
+  
+    this.dataService.actualizarDatos2(datosAEnviar).subscribe(
+      response => {
+        console.log(`Datos actualizados para ${mes}:`, response);
+        alert(`Datos de ${mes} guardados exitosamente`);
+      },
+      error => {
+        console.error(`Error al actualizar los datos para ${mes}:`, error);
+        alert(`Hubo un error al guardar los datos para ${mes}. Inténtelo de nuevo.`);
+      }
+    );
+  
     // Deshabilitar la edición después de guardar
     this.columnasEditables[this.meses.indexOf(mes)] = false;
   }
-
+  
+  
+  
   
     
 }

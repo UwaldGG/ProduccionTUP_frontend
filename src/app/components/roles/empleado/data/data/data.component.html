@@ -7,10 +7,18 @@
     <p>Coordinador: {{ distrito?.Coordinador }}</p>
   </div>
 
-  <!-- Lista desplegable de empleados -->
+  <!-- Lista desplegable de años -->
+  <div>
+    <label for="anio">Selecciona el año:</label>
+    <select [(ngModel)]="anioSeleccionado" name="anio" (change)="onAnioSeleccionado()">
+      <option *ngFor="let anio of anios" [value]="anio">{{ anio }}</option>
+    </select>
+  </div>
+
+  <!-- Lista desplegable de empleados (habilitada solo si se seleccionó un año) -->
   <div>
     <label for="empleado">Selecciona tu nombre:</label>
-    <select [(ngModel)]="empleadoSeleccionado" name="empleado" (ngModelChange)="onEmpleadoSeleccionado()" title="Selecciona tu nombre">
+    <select [(ngModel)]="empleadoSeleccionado" name="empleado" (ngModelChange)="onEmpleadoSeleccionado()" title="Selecciona tu nombre" [disabled]="!anioSeleccionado">
       <option *ngFor="let empleado of empleados" [value]="empleado.ID_Empleado.toString()">
         {{ empleado.Nombre }} {{ empleado.Apellido }}
       </option>
@@ -19,19 +27,16 @@
 
   <!-- Tabla de Tareas -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Columna de Número de Tarea -->
     <ng-container matColumnDef="numero">
       <th mat-header-cell *matHeaderCellDef>No.</th>
       <td mat-cell *matCellDef="let element">{{ element.ID_Tarea }}</td>
     </ng-container>
-  
-    <!-- Columna de Tareas -->
+
     <ng-container matColumnDef="tarea">
       <th mat-header-cell *matHeaderCellDef>Tarea</th>
       <td mat-cell *matCellDef="let element">{{ element.Descripcion }}</td>
     </ng-container>
-  
-    <!-- Columnas para cada mes con botón de editar -->
+
     <ng-container *ngFor="let mes of meses; let i = index" matColumnDef="{{ mes }}">
       <th mat-header-cell *matHeaderCellDef>
         {{ mes }}
@@ -43,8 +48,7 @@
         <span *ngIf="!columnasEditables[i]">{{ tarea.valoresMeses?.[mes] || '-' }}</span>
       </td>
     </ng-container>
-  
-    <!-- Header y Filas -->
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

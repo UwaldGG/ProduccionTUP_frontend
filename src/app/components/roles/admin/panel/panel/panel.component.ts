@@ -25,7 +25,7 @@ export class PanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-  }
+ }
 
   loadData(): void {
     this.distritosService.getTotalDistritos().subscribe(
