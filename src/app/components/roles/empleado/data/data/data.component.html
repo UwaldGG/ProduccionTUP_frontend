@@ -33,7 +33,7 @@
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="numero">
       <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">{{ element.ID_Tarea }}</td>
+      <td mat-cell *matCellDef="let element; let y = index">{{ y + 1 }}</td>
     </ng-container>
 
     <ng-container matColumnDef="tarea">
@@ -45,8 +45,9 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ mes }}
         <ng-container *ngIf="empleadoSeleccionado">
-          <button *ngIf="!columnasEditables[i]" (click)="habilitarEdicion(i)" (click)="toggleEdit()">Editar</button>
+          <button *ngIf="!columnasEditables[i]" (click)="habilitarEdicion(i)">Editar</button>
           <button *ngIf="columnasEditables[i]" (click)="guardarDatosPorMes(mes)">Guardar</button>
+          <button *ngIf="columnasEditables[i]" (click)="cancelarEdicion()">Cancelar</button>
         </ng-container>
       </th>
       <td mat-cell *matCellDef="let tarea">
@@ -59,4 +60,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-

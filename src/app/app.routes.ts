@@ -16,7 +16,8 @@ import { DataComponent } from './components/roles/empleado/data/data/data.compon
 import { PanelComponent } from './components/roles/admin/panel/panel/panel.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginAdminComponent } from './components/roles/admin/loginAdmin/login-admin/login-admin.component';
-import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './guards/admin/admin.guard';
+import { EmpleadoGuard } from './guards/empleado/empleado.guard';
 
 
 const routes: Routes = [
@@ -26,28 +27,28 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent},
 
-  //Login de empleados y tablas
+  //Login de empleados y tabla dinamica
   { path: 'login-empleado', component: IdentificarComponent },
-  { path: 'data/:id', component: DataComponent },
+  { path: 'data/:id', component: DataComponent, canActivate: [EmpleadoGuard] },
 
   //Login de admin y panel
   { path: 'login-admin', component: LoginAdminComponent },
-  { path: 'admin-panel', component: PanelComponent, canActivate: [AuthGuard] },
+  { path: 'admin-panel', component: PanelComponent, canActivate: [AdminGuard] }, //data: { requiresAdmin: true} },
 
   //distritos
-  { path: 'admin-panel/distritos/list', component: DistritosListComponent, canActivate:[AuthGuard] },
-  { path: 'admin-panel/distritos/create', component: DistritosCreateComponent, canActivate:[AuthGuard] },
-  { path: 'admin-panel/distritos/edit/:id', component: DistritosEditComponent, canActivate:[AuthGuard] },
+  { path: 'admin-panel/distritos/list', component: DistritosListComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
+  { path: 'admin-panel/distritos/create', component: DistritosCreateComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
+  { path: 'admin-panel/distritos/edit/:id', component: DistritosEditComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
 
   //empleados
-  { path: 'admin-panel/empleados/list', component: EmpleadosListComponent, canActivate:[AuthGuard] },
-  { path: 'admin-panel/empleados/create', component: EmpleadosCreateComponent, canActivate:[AuthGuard] },
-  { path: 'admin-panel/empleados/edit/:id', component: EmpleadosEditComponent, canActivate:[AuthGuard] },
+  { path: 'admin-panel/empleados/list', component: EmpleadosListComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
+  { path: 'admin-panel/empleados/create', component: EmpleadosCreateComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
+  { path: 'admin-panel/empleados/edit/:id', component: EmpleadosEditComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
 
   //tareas
-  { path: 'admin-panel/tareas/list', component: TareasListComponent, canActivate:[AuthGuard] },
-  { path: 'admin-panel/tareas/create', component: TareasCreateComponent, canActivate:[AuthGuard] },
-  { path: 'admin-panel/tareas/edit/:id', component: TareasEditComponent, canActivate:[AuthGuard] },
+  { path: 'admin-panel/tareas/list', component: TareasListComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
+  { path: 'admin-panel/tareas/create', component: TareasCreateComponent, canActivate:[AdminGuard] }, //data: { requiresAdmin: true} },
+  { path: 'admin-panel/tareas/edit/:id', component: TareasEditComponent, canActivate:[AdminGuard] } , //data: { requiresAdmin: true} },
 
   //graficas
 

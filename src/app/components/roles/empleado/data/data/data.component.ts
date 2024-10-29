@@ -10,6 +10,7 @@ import { DataService } from '../../../../../services/data/data.service';
 import { DatoActualizar, DatosTareaEmpleado, Empleado } from '../../../../../interfaces/model';
 import { ConfirmDialogsComponent } from '../../../../dialogs/confirm/confirm-dialogs/confirm-dialogs.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Title } from '@angular/platform-browser';
 
 // Interfaz para definir la estructura de las tareas
 interface Tarea {
@@ -40,6 +41,10 @@ export class DataComponent implements OnInit {
   empleadoid2: number = 0;
   anios: number[] = [2024, 2025]; //lista de años
   isEditing: boolean = false;
+  editingColumn: number | null = null;
+  //originalValue: any; // Para almacenar el valor original antes de editar
+  originalValues: { [mes: string]: { [tareaId: number]: number } } = {};
+
 
 
   constructor(
@@ -154,13 +159,46 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
       if(result) {
         // Configura la edición para la columna seleccionada
         this.columnasEditables = this.columnasEditables.map((_, i) => i === indiceMes);
+        this.editingColumn = indiceMes;
+
+        //guarda los valores originales
+        this.originalValues = {};
+        const mesActual = this.meses[indiceMes];
+        this.dataSource.data.forEach((tarea) => {
+          if (!this.originalValues[mesActual]) {
+            this.originalValues[mesActual] = {};
+          }
+          this.originalValues[mesActual][tarea.ID_Tarea] = tarea.valoresMeses[mesActual];
+        });
       }
     });
   }
-  
-  toggleEdit() {
-    this.isEditing = !this.isEditing;
+
+  cancelarEdicion(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogsComponent, {
+      data: {
+        title: 'Confirmar cancelación',
+        message: `¿Desea cancelar?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        if (this.editingColumn !== null) {
+          const mesActual = this.meses[this.editingColumn];
+          this.dataSource.data.forEach((tarea) => {
+            tarea.valoresMeses[mesActual] = this.originalValues[mesActual][tarea.ID_Tarea];
+          });
+          this.columnasEditables[this.editingColumn] = false;
+          this.editingColumn = null;
+        }
+      }
+    })
   }
+  
+  //toggleEdit() {
+    //this.isEditing = !this.isEditing;
+  //}
   
   guardarDatosPorMes(mes: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogsComponent, {
@@ -197,18 +235,17 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
       response => {
         console.log(`Datos actualizados para ${mes}:`, response);
         alert(`Datos de ${mes} guardados exitosamente`);
+        this.columnasEditables[this.meses.indexOf(mes)] = false;
+        this.editingColumn = null;
       },
       error => {
         console.error(`Error al actualizar los datos para ${mes}:`, error);
         alert(`Hubo un error al guardar los datos para ${mes}. Inténtelo de nuevo.`);
       }
     );
-  
     // Deshabilitar la edición después de guardar
-    this.columnasEditables[this.meses.indexOf(mes)] = false;
+    //this.columnasEditables[this.meses.indexOf(mes)] = false;
       }
     })
-
   }
-  
 }  

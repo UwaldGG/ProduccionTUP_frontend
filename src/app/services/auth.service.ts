@@ -10,6 +10,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000/api/v1/distritos';
 
   private loggedIn: boolean = false;
+  private isAdmin: boolean = false;
 
   // Simulación de credenciales
   private adminUsername = 'admin';
@@ -22,6 +23,7 @@ export class AuthService {
       map(distrito => {
         if (distrito.Contrasenia === password) {
           this.loggedIn = true;
+          this.isAdmin = false;
           return true;
         } else {
           return false;
@@ -32,11 +34,11 @@ export class AuthService {
   }
   
   
-
   // Método de autenticación
   login(username: string, password: string): boolean {
     if (username === this.adminUsername && password === this.adminPassword) {
       this.loggedIn = true;
+      this.isAdmin = true;
       return true;
     }
     this.loggedIn = false;
@@ -45,9 +47,19 @@ export class AuthService {
 
   logout(): void {
     this.loggedIn = false;
+    this.isAdmin = false;
   }
 
   isAuthenticated(): boolean {
     return this.loggedIn;
   }
+
+  isAdministrator(): boolean {
+    return this.loggedIn && this.isAdmin;
+  }
+  
+  isEmpleadoAuthenticated(): boolean {
+    return this.loggedIn && !this.isAdmin;
+  }
+  
 }

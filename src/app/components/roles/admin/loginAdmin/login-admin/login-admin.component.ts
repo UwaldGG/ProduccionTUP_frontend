@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthGuard } from '../../../../../auth.guard';
+import { AdminGuard } from '../../../../../guards/admin/admin.guard';
 import { AuthService } from '../../../../../services/auth.service';  // Importar el AuthService
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessModalComponent } from '../../../../../components/SuccessModal/success-modal/success-modal.component';
@@ -21,7 +21,8 @@ export class LoginAdminComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router, 
+  constructor(
+    private router: Router, 
     private authService: AuthService,
     private dialog: MatDialog
 

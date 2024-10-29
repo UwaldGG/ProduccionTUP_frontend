@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SuccessModalComponent } from '../../../../SuccessModal/success-modal/success-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-identificar',
@@ -22,7 +24,8 @@ export class IdentificarComponent implements OnInit {
   constructor(
     private distritosService: DistritosService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class IdentificarComponent implements OnInit {
       this.authService.verifyPassword(this.selectedDistrito, this.password).subscribe(
         (isAuthenticated) => {
           if (isAuthenticated) {
+            this.dialog.open(SuccessModalComponent);
             // Redirigir a la página con la tabla de datos y pasar el distritoId
             this.router.navigate(['data', this.selectedDistrito]);
           } else {
