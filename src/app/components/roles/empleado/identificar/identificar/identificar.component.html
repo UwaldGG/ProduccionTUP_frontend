@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="title">Iniciar Sesión</h1>
+    <h1 class="title">Produccion TUP - Distrital </h1>
 
     <form id="loginForm" (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
         <!-- Lista desplegable de distritos -->
@@ -19,7 +19,7 @@
             <label for="password">Ingrese la contraseña:</label>
             <input type="password" id="password" class="form-control" name="password" required minlength="4" [(ngModel)]="password" #passwordInput="ngModel">
             <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
-                La contraseña es requerida y debe tener al menos 4 caracteres.
+                La contraseña es requerida
             </div>
             <div *ngIf="isInvalidPassword" class="error-message">
                 La contraseña es incorrecta.
@@ -29,6 +29,11 @@
         <!-- Botón de inicio de sesión -->
         <div class="form-group">
             <button type="submit" class="login-button" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+        </div>
+
+            <!-- Mensaje de error general -->
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
         </div>
     </form>
 </div>

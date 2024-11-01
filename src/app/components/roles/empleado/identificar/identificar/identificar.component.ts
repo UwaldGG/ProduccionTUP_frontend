@@ -20,6 +20,7 @@ export class IdentificarComponent implements OnInit {
   selectedDistrito: number | null = null;
   password: string = '';
   isInvalidPassword: boolean = false;
+  errorMessage: string = '';
 
   constructor(
     private distritosService: DistritosService,
@@ -53,7 +54,11 @@ export class IdentificarComponent implements OnInit {
             // Redirigir a la página con la tabla de datos y pasar el distritoId
             this.router.navigate(['data', this.selectedDistrito]);
           } else {
+            this.errorMessage = 'La contraseña es incorrecta, intenta de nuevo.';
             console.log('Contraseña incorrecta.');
+            setTimeout(() => {
+              this.errorMessage = '';
+            }, 3000);
           }
         }
       );

@@ -92,4 +92,8 @@ export class PanelComponent implements OnInit {
   goToEmpleadosEdit(): void {
     this.router.navigate(['/admin-panel/empleados/edit']);
   }
+
+  goToConsolidadoPorDistrito(): void {
+    this.router.navigate(['/admin-panel/consolidado/por-distrito']);
+  }
 }

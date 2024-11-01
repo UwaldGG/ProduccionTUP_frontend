@@ -67,7 +67,7 @@ export class EmpleadosListComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogsComponent, {
       data: {
         title: 'Confirmar Eliminación',
-        message: `¿Está seguro de que desea eliminar el distrito?`,
+        message: `¿Está seguro de que desea eliminar el empleado?`,
       },
     });
 

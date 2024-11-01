@@ -34,8 +34,11 @@ export class LoginAdminComponent {
       this.dialog.open(SuccessModalComponent);
       this.router.navigate(['/admin-panel']);  // Redirige al dashboard del admin
     } else {
-      this.errorMessage = 'Credenciales incorrectas, intenta de nuevo.';
-    }
+      this.errorMessage = 'Credenciales incorrectas, intenta de nuevo.'
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 3000);
+   }
   }
 
   openSuccessModal(): void {

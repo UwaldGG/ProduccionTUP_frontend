@@ -57,6 +57,7 @@ export interface DatosTareaEmpleado {
   fk_tarea: number; // ID de la tarea
   mes: number; // Número del mes (1-12)
   valoresMeses: { [key: string]: number }; 
+  total: number;
 }
 
 
