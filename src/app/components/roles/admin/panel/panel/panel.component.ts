@@ -96,4 +96,13 @@ export class PanelComponent implements OnInit {
   goToConsolidadoPorDistrito(): void {
     this.router.navigate(['/admin-panel/consolidado/por-distrito']);
   }
+
+  goToConsolidadoPorCuatrimestre(): void {
+    this.router.navigate(['/admin-panel/consolidado/por-cuatrimestre']);
+  }
+
+  goToConsolidadoPorAnio(): void {
+    this.router.navigate(['/admin-panel/consolidado/por-year']);
+  }
+
 }

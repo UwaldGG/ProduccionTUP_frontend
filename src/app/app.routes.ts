@@ -19,6 +19,8 @@ import { LoginAdminComponent } from './components/roles/admin/loginAdmin/login-a
 import { AdminGuard } from './guards/admin/admin.guard';
 import { EmpleadoGuard } from './guards/empleado/empleado.guard';
 import { PorDistritoComponent } from './components/consolidados/por-distrito/por-distrito.component';
+import { CuatrimestreComponent } from './components/consolidados/cuatrimestre/cuatrimestre.component';
+import { YearComponent } from './components/consolidados/year/year.component';
 
 
 const routes: Routes = [
@@ -52,7 +54,9 @@ const routes: Routes = [
   { path: 'admin-panel/tareas/edit/:id', component: TareasEditComponent, canActivate:[AdminGuard] } , //data: { requiresAdmin: true} },
 
   //consolidados
-  { path: 'admin-panel/consolidado/por-distrito', component: PorDistritoComponent} //, canActivate:[AdminGuard] },
+  { path: 'admin-panel/consolidado/por-distrito', component: PorDistritoComponent, canActivate:[AdminGuard] }, //, canActivate:[AdminGuard] },
+  { path: 'admin-panel/consolidado/por-cuatrimestre', component: CuatrimestreComponent, canActivate:[AdminGuard] },
+  { path: 'admin-panel/consolidado/por-year', component: YearComponent, canActivate:[AdminGuard] }
 
 
 ];

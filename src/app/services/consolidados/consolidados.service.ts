@@ -14,6 +14,10 @@ export class ConsolidadosService {
   obtenerConsolidado(ID_Distrito: number, anio: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/consolidado/${ID_Distrito}?anio=${anio}`);
   }
+
+  obtenerConsolidadoPorAnio(anio: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/consolidado/anio/${anio}`);
+  }  
 }
 
 
