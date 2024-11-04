@@ -6,6 +6,7 @@ import { DatosTareaEmpleado, Distrito } from '../../../interfaces/model';
 import { ConsolidadosService } from '../../../services/consolidados/consolidados.service';
 import { TareasService } from '../../../services/tareas/tareas.service';
 import { DistritosService } from '../../../services/distritos/distritos.service';
+import { ConfigService } from '../../../services/config/config.service';
 
 interface Tarea {
   ID_Tarea: number;
@@ -21,11 +22,8 @@ interface Tarea {
   styleUrl: './cuatrimestre.component.css'
 })
 export class CuatrimestreComponent implements OnInit {
-  anios: number[] = [2024, 2025];
-  distritos: Distrito[] = [];
-  datosDistritos: DatosTareaEmpleado[] = [];
+  anios: number[] = [];
   anioSeleccionado: number | null = null;
-  distritoSeleccionado: number = 0;
   tareas: Tarea[] = [];
   
   // Define los meses como array de arrays para manejar los cuatrimestres
@@ -35,7 +33,7 @@ export class CuatrimestreComponent implements OnInit {
     ['Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   ];
   
-  displayedColumns: string[] = ['numero', 'tarea', 'Q1', 'Q2', 'Q3', 'Q4', 'Total'];
+  displayedColumns: string[] = ['numero', 'tarea', 'Q1', 'Q2', 'Q3', 'Total'];
 
   //displayedColumns: string[] = ['numero', 'tarea', ...this.cuatrimestres.flat(), 'Total'];
   dataSource = new MatTableDataSource<Tarea>();
@@ -43,46 +41,25 @@ export class CuatrimestreComponent implements OnInit {
   constructor(
     private consolidadosService: ConsolidadosService,
     private tareasService: TareasService,
-    private distritosService: DistritosService
+    private distritosService: DistritosService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {
-    this.cargarDistritos();
-  }
-
-  cargarDistritos(): void {
-    this.distritosService.getDistritos().subscribe(
-      (response: Distrito[]) => {
-        this.distritos = response;
-        console.log('Distritos cargados:', this.distritos);
-      },
-      (error) => {
-        console.error('Error al cargar distritos:', error);
-      }
-    );
+    this.anios = this.configService.anios;
   }
 
   onAnioSeleccionado() {
     console.log('Año seleccionado: ', this.anioSeleccionado);
-    this.distritoSeleccionado = 0;
-    this.tareas = [];
-    this.dataSource.data = [];
-    if (this.anioSeleccionado && this.distritoSeleccionado) {
-      this.obtenerConsolidadoPorDistrito(this.distritoSeleccionado, this.anioSeleccionado);
+    if (this.anioSeleccionado) {
+      this.obtenerConsolidadoPorAnio(this.anioSeleccionado);
     }
   }
 
-  onDistritoSeleccionado() {
-    console.log("Distrito seleccionado", this.distritoSeleccionado);
-    if (this.distritoSeleccionado > 0 && this.anioSeleccionado) {
-      this.obtenerConsolidadoPorDistrito(this.distritoSeleccionado, this.anioSeleccionado);
-    }
-  }
-
-  private obtenerConsolidadoPorDistrito(distritoId: number, anio: number): void {
+  private obtenerConsolidadoPorAnio(anio: number): void {
     this.tareasService.getTareas().subscribe((todasLasTareas: Tarea[]) => {
       this.tareas = todasLasTareas;
-      this.consolidadosService.obtenerConsolidado(distritoId, anio).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
+      this.consolidadosService.obtenerConsolidadoPorAnio(anio).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
         console.log('Datos de tareas por distrito', datosTareasEmpleado);
         this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
         this.dataSource.data = this.tareas;
@@ -129,5 +106,4 @@ export class CuatrimestreComponent implements OnInit {
       return total + (Number(valoresMeses[mes]) || 0);
     }, 0);
   }
-  
 }

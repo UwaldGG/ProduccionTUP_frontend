@@ -1,26 +1,89 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+/* Estilo base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: #fff;
+}
+
+/* Encabezado principal */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  margin-bottom: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.info-text p {
+  font-weight: bold;
+  font-size: 1.5em;
+  opacity: 0.9;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor principal */
 .container {
   text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
+/* Encabezado */
+.container h1 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Botones */
 .button {
   display: inline-block;
-  padding: 20px 40px;
-  font-size: 24px;
-  margin: 10px;
-  color: white;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 15px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid transparent;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.4s;
+  text-transform: uppercase;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Efecto hover en botones */
 .button:hover {
-  background-color: #0056b3;
+  background-color: #fff;
+  color: #007bff;
+  border-color: #007bff;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Efecto al hacer clic en botones */
+.button:active {
+  transform: translateY(2px);
 }

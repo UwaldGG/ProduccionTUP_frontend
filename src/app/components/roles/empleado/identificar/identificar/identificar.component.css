@@ -1,12 +1,12 @@
 /* Asegura que html y body ocupen el 100% de la pantalla */
-html, body {
+.body {
+    background-color: #007bff !important;
     height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f4f6f9;
 }
 
 /* Contenedor del formulario */
@@ -126,3 +126,10 @@ select:focus, input[type="password"]:focus {
     margin-top: 5px;
 }
 
+/* Título principal */
+.main-title h1 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}

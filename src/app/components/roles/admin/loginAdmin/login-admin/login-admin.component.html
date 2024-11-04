@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="login-card">
-    <h2>Admin Login</h2>
+    <h2>Administración TUP</h2>
     <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
       <div class="form-group">
         <label for="username">Usuario</label>
@@ -15,7 +15,6 @@
           #usernameInput="ngModel"
           autofocus
         />
-        <!-- Mostrar mensaje de error si el campo es inválido -->
         <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error-message">
           El nombre de usuario es obligatorio.
         </div>
@@ -33,7 +32,6 @@
           class="form-control"
           #passwordInput="ngModel"
         />
-        <!-- Mostrar mensaje de error si el campo es inválido -->
         <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
           La contraseña es obligatoria.
         </div>
@@ -44,7 +42,6 @@
       </button>
     </form>
 
-    <!-- Mensaje de error general -->
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>

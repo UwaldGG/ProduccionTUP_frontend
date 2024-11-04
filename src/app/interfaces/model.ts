@@ -26,7 +26,6 @@ export interface Tarea {
   empleados_tareas?: EmpleadosTareas[]; // Relación con empleados_tareas (opcional)
 }
 
-
 export interface TareaTabla {
   tareaNumero: number;
   tareaNombre: string;
@@ -46,8 +45,6 @@ export interface TareaTabla {
   };
 }
 
-
-
 export interface DatosTareaEmpleado {
   ID_Dato: number;
   anio: number;
@@ -59,9 +56,6 @@ export interface DatosTareaEmpleado {
   valoresMeses: { [key: string]: number }; 
   total: number;
 }
-
-
-
 
 export interface DatoActualizar {
   fk_tarea: number;

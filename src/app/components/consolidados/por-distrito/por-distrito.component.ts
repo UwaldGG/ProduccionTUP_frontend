@@ -7,6 +7,7 @@ import { DatosTareaEmpleado, Distrito } from '../../../interfaces/model';
 import { TareasService } from '../../../services/tareas/tareas.service';
 import { ActivatedRoute } from '@angular/router';
 import { DistritosService } from '../../../services/distritos/distritos.service';
+import { ConfigService } from '../../../services/config/config.service';
 
 interface Tarea {
   ID_Tarea: number;
@@ -22,7 +23,7 @@ interface Tarea {
   styleUrl: './por-distrito.component.css'
 })
 export class PorDistritoComponent implements OnInit {
-  anios: number[] = [2024, 2025];
+  anios: number[] = [];
   distritos: Distrito[] = [];
   datosDistritos: DatosTareaEmpleado[] = [];
   anioSeleccionado: number | null = null;
@@ -35,10 +36,12 @@ export class PorDistritoComponent implements OnInit {
   constructor(
     private consolidadosService: ConsolidadosService,
     private tareasService: TareasService,
-    private distritosService: DistritosService
+    private distritosService: DistritosService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {
+    this.anios = this.configService.anios;
     this.cargarDistritos();
   }
 

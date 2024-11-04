@@ -11,6 +11,7 @@ import { DatoActualizar, DatosTareaEmpleado, Empleado } from '../../../../../int
 import { ConfirmDialogsComponent } from '../../../../dialogs/confirm/confirm-dialogs/confirm-dialogs.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
+import { ConfigService } from '../../../../../services/config/config.service';
 
 // Interfaz para definir la estructura de las tareas
 interface Tarea {
@@ -39,7 +40,7 @@ export class DataComponent implements OnInit {
   columnasEditables: boolean[] = Array(12).fill(false);
   distritoid2: number = 0;
   empleadoid2: number = 0;
-  anios: number[] = [2024, 2025]; //lista de años
+  anios: number[] = [] ; //lista de años
   isEditing: boolean = false;
   editingColumn: number | null = null;
   //originalValue: any; // Para almacenar el valor original antes de editar
@@ -53,10 +54,12 @@ export class DataComponent implements OnInit {
     private route: ActivatedRoute,
     private tareasService: TareasService,
     private dataService: DataService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {
+    this.anios = this.configService.anios;
     const distritoId: string = this.route.snapshot.paramMap.get('id') || '';
     const distritoIdNumber = Number(distritoId);
     this.distritoid2 = distritoIdNumber;

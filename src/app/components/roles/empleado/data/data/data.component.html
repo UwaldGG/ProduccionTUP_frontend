@@ -1,10 +1,23 @@
 <div>
   <h1>Registro de Actividades</h1>
 
-  <!-- Mostrar información del distrito y coordinador -->
-  <div class="info-header">
-    <p>Distrito: {{ distrito?.NombreDistrito }}</p>
-    <p>Coordinador: {{ distrito?.Coordinador }}</p>
+  <!-- Información general -->
+  <div class="info-header general-info">
+    <p>Programa Salud Reproductiva</p>
+    <p>DIRECCION DEPARTAMENTAL DE REDES INTEGRADAS DE SERVICIOS DE SALUD HUEHUETENANGO</p>
+    <p>INFORME MENSUAL TÉCNICAS UNIVERSITARIAS EN PARTERIA</p>
+  </div>
+
+  <!-- Información del distrito y coordinador -->
+  <div class="info-header distrito-info">
+    <div class="info-item">
+      <span>Distrito de Salud. No.   {{distritoid2}}</span>
+      <span>{{ distrito?.NombreDistrito }}</span>
+    </div>
+    <div class="info-item">
+      <span>Vo. Bo. Del Coordinador/a del distrito:</span>
+      <span>{{ distrito?.Coordinador }}</span>
+    </div>
   </div>
 
   <!-- Lista desplegable de años -->

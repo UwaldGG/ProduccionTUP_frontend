@@ -6,13 +6,13 @@ import { DatosTareaEmpleado, Distrito } from '../../../interfaces/model';
 import { ConsolidadosService } from '../../../services/consolidados/consolidados.service';
 import { DistritosService } from '../../../services/distritos/distritos.service';
 import { TareasService } from '../../../services/tareas/tareas.service';
+import { ConfigService } from '../../../services/config/config.service';
 
 interface Tarea {
   ID_Tarea: number;
   Descripcion: string;
   valoresMeses: { [key: string]: number }; // Los meses se representan como claves de string
 }
-
 
 @Component({
   selector: 'app-year',
@@ -22,7 +22,7 @@ interface Tarea {
   styleUrl: './year.component.css'
 })
 export class YearComponent implements OnInit {
-  anios: number[] = [2024, 2025];
+  anios: number[] = [];
   anioSeleccionado: number | null = null;
   tareas: Tarea[] = [];
   meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -31,11 +31,12 @@ export class YearComponent implements OnInit {
 
   constructor(
     private consolidadosService: ConsolidadosService,
-    private tareasService: TareasService
+    private tareasService: TareasService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {
-    // Cargar cualquier configuración inicial aquí
+    this.anios = this.configService.anios;
   }
 
   onAnioSeleccionado() {

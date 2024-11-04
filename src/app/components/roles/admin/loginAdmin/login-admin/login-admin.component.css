@@ -1,105 +1,86 @@
-/* Estilos generales del contenedor */
+/* Estilo del contenedor */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  /* Estilos de la tarjeta de login */
-  .login-card {
-    background-color: white;
-    padding: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  /* Estilo del título */
-  .login-card h2 {
-    margin-bottom: 1.5rem;
-    color: #333;
-  }
-  
-  /* Estilos del grupo de formulario */
-  .form-group {
-    margin-bottom: 1.2rem;
-    text-align: left;
-  }
-  
-  /* Estilos del input */
-  .form-control {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-  }
-  
-  /* Estilo del botón de envío */
-  .btn-submit {
-    background-color: #007bff;
-    color: white;
-    padding: 0.8rem;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-submit:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Estilo del mensaje de error */
-  .error-message {
-    margin-top: 1rem;
-    color: #ff4d4f;
-  }
-  
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: white; /* Fondo claro */
+}
 
-  .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .btn-submit {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .btn-submit:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .login-card {
-    width: 300px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-  }
-  
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
+/* Estilo de la tarjeta de login */
+.login-card {
+  background: #ffffff; /* Fondo blanco */
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: #333; /* Texto oscuro */
+}
+
+/* Título */
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #007bff; 
+}
+
+/* Grupo de formulario */
+.form-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+/* Campos de entrada */
+.form-control {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #f9f9f9; /* Fondo claro */
+  color: #333;
+}
+
+.form-control::placeholder {
+  color: #888; /* Placeholder más oscuro */
+}
+
+/* Botón de envío */
+.btn-submit {
+  background-color: #007bff; 
+  color: white;
+  padding: 0.8rem;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3; 
+  transform: translateY(-3px);
+}
+
+.btn-submit:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #d32f2f; /* Rojo oscuro */
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Sombras y transiciones en campos */
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 121, 107, 0.3);
+}

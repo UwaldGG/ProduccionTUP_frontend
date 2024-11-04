@@ -76,35 +76,57 @@ select {
   
   
   
-  /* Encabezado mejorado */
-  h1 {
-    text-align: center;
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #fff;
-    background: linear-gradient(90deg, #007bff, #00c6ff);
-    padding: 20px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Información del distrito y coordinador mejorada */
-  .info-header {
-    background: linear-gradient(90deg, #00c6ff, #007bff);
-    color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.5em;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .info-header p {
-    margin: 10px 0;
-    font-weight: 500;
-  }
+/* Estilo del encabezado */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo general de los contenedores de información */
+.info-header {
+  background: linear-gradient(90deg, #00c6ff, #007bff);
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Separar las dos secciones de información */
+.general-info {
+  text-align: center;
+}
+
+/* Flexbox para organizar los textos en el div del distrito */
+.distrito-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;  /* Espaciado entre elementos */
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);  /* Línea de separación entre elementos */
+}
+
+.info-item span:first-child {
+  font-weight: 600; /* Para resaltar el texto de descripción */
+}
+
+.info-item span:last-child {
+  text-align: center;
+}
+
   
   .selected-year {
     font-size: 2em;

@@ -1,5 +1,12 @@
 <div>
-    <h1>Consolidados por Cuatrimestre</h1>
+    <h1>CONSOLIDADO GENERAL DE LOS DMS DONDE HAY TUP</h1>
+
+<!-- Mostrar información del tiempo de produccion -->
+  <div class="info-header">
+    <p>Producción de Enero a Diciembre {{anioSeleccionado}}</p>
+    <p>por Cuatrimestres</p>
+  </div>
+
     <!-- Lista desplegable de años -->
     <div>
       <label for="anio">Selecciona el año:</label>
@@ -7,16 +14,6 @@
         <option *ngFor="let anio of anios" [value]="anio">{{ anio }}</option>
       </select>
     </div>
-
-      <!-- Lista desplegable de distritos -->
-  <div>
-    <label for="distrito">Selecciona el distrito:</label>
-    <select [(ngModel)]="distritoSeleccionado" name="distrito" (change)="onDistritoSeleccionado()" [disabled]="!anioSeleccionado" title="Selecciona el distrito">
-      <option *ngFor="let distrito of distritos" [value]="distrito.ID_Distrito">
-        {{ distrito.NombreDistrito }}
-      </option>
-    </select>
-  </div>
   
     <div>
       <!-- Tabla de Tareas -->
@@ -36,26 +33,20 @@
   
         <!-- Columna Cuatrimestre 1 -->
         <ng-container matColumnDef="Q1">
-          <th mat-header-cell *matHeaderCellDef>Cuatrimestre 1</th>
+          <th mat-header-cell *matHeaderCellDef>1ro Cuatrimestre</th>
           <td mat-cell *matCellDef="let tarea">{{ calcularTotalCuatrimestre(tarea.valoresMeses, cuatrimestres[0]) }}</td>
         </ng-container>
   
         <!-- Columna Cuatrimestre 2 -->
         <ng-container matColumnDef="Q2">
-          <th mat-header-cell *matHeaderCellDef>Cuatrimestre 2</th>
+          <th mat-header-cell *matHeaderCellDef>2do Cuatrimestre</th>
           <td mat-cell *matCellDef="let tarea">{{ calcularTotalCuatrimestre(tarea.valoresMeses, cuatrimestres[1]) }}</td>
         </ng-container>
   
         <!-- Columna Cuatrimestre 3 -->
         <ng-container matColumnDef="Q3">
-          <th mat-header-cell *matHeaderCellDef>Cuatrimestre 3</th>
+          <th mat-header-cell *matHeaderCellDef>3ro Cuatrimestre</th>
           <td mat-cell *matCellDef="let tarea">{{ calcularTotalCuatrimestre(tarea.valoresMeses, cuatrimestres[2]) }}</td>
-        </ng-container>
-  
-        <!-- Columna Cuatrimestre 4 -->
-        <ng-container matColumnDef="Q4">
-          <th mat-header-cell *matHeaderCellDef>Cuatrimestre 4</th>
-          <td mat-cell *matCellDef="let tarea">{{ calcularTotalCuatrimestre(tarea.valoresMeses, cuatrimestres[3]) }}</td>
         </ng-container>
   
         <!-- Columna Total General -->
