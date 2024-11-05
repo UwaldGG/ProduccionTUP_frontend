@@ -72,9 +72,12 @@ select {
     background-color: #0056b3;
   }
   
-  
-  
-  
+  /* Estilo para botón desactivado */
+  button:disabled {
+    background-color: #ccc; /* Color de fondo gris cuando está desactivado */
+    color: #666; /* Color de texto gris para botón desactivado */
+    cursor: not-allowed; /* Cambia el cursor a 'no permitido' */
+  }  
   
   /* Encabezado mejorado */
   h1 {

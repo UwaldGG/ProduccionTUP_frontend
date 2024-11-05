@@ -14,6 +14,10 @@
         <option *ngFor="let anio of anios" [value]="anio">{{ anio }}</option>
       </select>
     </div>
+
+    <!-- Botón para exportar a Excel -->
+    <button (click)="exportarAExcel()" [disabled]="!anioSeleccionado">Exportar a Excel</button>
+  
   
     <div>
       <!-- Tabla de Tareas -->

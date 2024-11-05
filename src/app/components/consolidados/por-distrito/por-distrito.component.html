@@ -24,6 +24,9 @@
     </select>
   </div>
 
+  <!-- Botón para exportar a Excel -->
+  <button (click)="exportarAExcel()" [disabled]="!distritoSeleccionado">Exportar a Excel</button>
+  
   <div>
     <!-- Tabla de Tareas -->
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

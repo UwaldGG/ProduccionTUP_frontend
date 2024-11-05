@@ -217,7 +217,8 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
         const tareasSinDatos = this.dataSource.data.filter(tarea => 
         tarea.valoresMeses[mes] === null || 
         tarea.valoresMeses[mes] === undefined || 
-        isNaN(tarea.valoresMeses[mes])
+        isNaN(tarea.valoresMeses[mes]) ||
+        tarea.valoresMeses[mes] < 0
         );
   
         if (tareasSinDatos.length > 0) {
