@@ -62,3 +62,7 @@ export interface DatoActualizar {
   mes: number;
   cantidad: number;
 }
+
+export interface LoginResponse {
+  isAdmin: boolean;  // O cualquier otro campo que retorne tu backend
+}

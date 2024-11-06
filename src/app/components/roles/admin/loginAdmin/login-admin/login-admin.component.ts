@@ -28,18 +28,21 @@ export class LoginAdminComponent {
 
   ) {}  // Inyectar AuthService
 
-  onLogin() {
-    // Usar el AuthService para autenticar
-    if (this.authService.login(this.username, this.password)) {
+onLogin() {
+  // Usar el AuthService para autenticar
+  this.authService.login(this.username, this.password).subscribe((isAuthenticated) => {
+    if (isAuthenticated) {
       this.dialog.open(SuccessModalComponent);
       this.router.navigate(['/admin-panel']);  // Redirige al dashboard del admin
     } else {
-      this.errorMessage = 'Credenciales incorrectas, intenta de nuevo.'
+      this.errorMessage = 'Credenciales incorrectas, intenta de nuevo.';  // Mensaje de error
       setTimeout(() => {
         this.errorMessage = '';
       }, 3000);
-   }
-  }
+    }
+  });
+}
+
 
   openSuccessModal(): void {
     this.dialog.open(SuccessModalComponent);
