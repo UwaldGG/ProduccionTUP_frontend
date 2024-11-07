@@ -9,8 +9,8 @@ import { LoginResponse } from '../interfaces/model';
 })
 
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/v1/distritos';
-  private apiUrl2 = 'http://localhost:3000/api/v1/auth';
+  private apiUrl = 'http://200.12.42.13:3000/api/v1/distritos';
+  private apiUrl2 = 'http://200.12.42.13:3000/api/v1/auth';
 
   private loggedIn: boolean = false;
   private isAdmin: boolean = false;

@@ -15,9 +15,12 @@
       </select>
     </div>
 
-    <!-- Botón para exportar a Excel -->
-    <button (click)="exportarAExcel()" [disabled]="!anioSeleccionado">Exportar a Excel</button>
-  
+    <div class="button-container">
+      <button (click)="exportarAExcel()" [disabled]="!anioSeleccionado">Exportar a Excel</button>
+      <button (click)="regresarAlPanelPrincipal()" class="home-button">
+        <i class="fas fa-home"></i> Panel Principal
+      </button>
+    </div>
   
     <div>
       <!-- Tabla de Tareas -->

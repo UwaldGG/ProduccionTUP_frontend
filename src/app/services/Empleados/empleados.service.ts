@@ -7,7 +7,7 @@ import { Empleado, Tarea, Distrito } from '../../interfaces/model';
   providedIn: 'root',
 })
 export class EmpleadosService {
-  private apiUrl = 'http://localhost:3000/api/v1/empleados';
+  private apiUrl = 'http://200.12.42.13:3000/api/v1/empleados';
 
   constructor(private http: HttpClient) {}
 
@@ -47,14 +47,6 @@ export class EmpleadosService {
   getEmpleadosWithDistritos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/list`); // Asegúrate de que esta ruta esté bien configurada
   }
-
-  //guardarTareas(data: any): Observable<any> {
-    //return this.http.post(`${this.apiUrl}/guardar-tareas`, data);
-  //}
-
-  //getEmpleadosWithDistrito(): Observable<Empleado[]> {
-  //  return this.http.get<Empleado[]>(`${this.apiUrl}/with-distrito`);
-  //}
 
   obtenerTareasPorEmpleadoYDistrito(nombre: string, apellido: string, distrito: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/empleados-tareas`, {

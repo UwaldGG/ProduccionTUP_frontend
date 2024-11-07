@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ConsolidadosService {
 
-  private apiUrl = 'http://localhost:3000/api/v1/empleados_tareas';
+  private apiUrl = 'http://200.12.42.13:3000/api/v1/empleados_tareas';
 
   constructor(private http: HttpClient) {}
 

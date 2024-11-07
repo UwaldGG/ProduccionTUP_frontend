@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DistritosService {
-  private apiUrl = 'http://localhost:3000/api/v1/distritos';
-  private apiUrl2 = 'http://localhost:3000/api/v1/empleados';
+  private apiUrl = 'http://200.12.42.13:3000/api/v1/distritos';
+  private apiUrl2 = 'http://200.12.42.13:3000/api/v1/empleados';
 
 
 

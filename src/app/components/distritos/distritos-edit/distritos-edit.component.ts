@@ -73,4 +73,8 @@ export class DistritosEditComponent implements OnInit {
       }
     );
   }
+
+  cancel() {
+    this.router.navigate(['/admin-panel/distritos/list']); // Cambia la ruta a tu panel principal
+  }
 }

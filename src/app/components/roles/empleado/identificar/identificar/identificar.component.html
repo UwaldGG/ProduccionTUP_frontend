@@ -27,6 +27,10 @@
             <button type="submit" class="login-button" [disabled]="loginForm.invalid">Iniciar Sesión</button>
         </div>
 
+        <button type="button" (click)="goToLogin()" class="cancel-button">
+            <i class="fas fa-home"></i> Regresar al Inicio
+        </button>     
+
         <div *ngIf="errorMessage" class="error-message">
             {{ errorMessage }}
         </div>

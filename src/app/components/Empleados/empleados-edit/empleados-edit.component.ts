@@ -90,5 +90,9 @@ export class EmpleadosEditComponent implements OnInit{
       }
     );
   }
+
+  cancel() {
+    this.router.navigate(['/admin-panel/empleados/list']); // Cambia la ruta a tu panel principal
+  }
 }
 

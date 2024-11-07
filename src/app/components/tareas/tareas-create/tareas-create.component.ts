@@ -45,4 +45,8 @@ export class TareasCreateComponent {
       }
     );
   }
+
+  cancel() {
+    this.router.navigate(['/admin-panel/tareas/list']); // Cambia la ruta a tu panel principal
+  }
 }

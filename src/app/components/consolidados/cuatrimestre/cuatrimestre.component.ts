@@ -10,6 +10,7 @@ import { ConfigService } from '../../../services/config/config.service';
 import * as ExcelJS from 'exceljs';
 import { ConfirmDialogsComponent } from '../../dialogs/confirm/confirm-dialogs/confirm-dialogs.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 interface Tarea {
   ID_Tarea: number;
@@ -48,7 +49,7 @@ export class CuatrimestreComponent implements OnInit {
     private distritosService: DistritosService,
     private configService: ConfigService,
     private dialog: MatDialog,
-
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,7 +57,6 @@ export class CuatrimestreComponent implements OnInit {
   }
 
   onAnioSeleccionado() {
-    console.log('Año seleccionado: ', this.anioSeleccionado);
     if (this.anioSeleccionado) {
       this.obtenerConsolidadoPorAnio(this.anioSeleccionado);
     }
@@ -66,10 +66,8 @@ export class CuatrimestreComponent implements OnInit {
     this.tareasService.getTareas().subscribe((todasLasTareas: Tarea[]) => {
       this.tareas = todasLasTareas;
       this.consolidadosService.obtenerConsolidadoPorAnio(anio).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
-        console.log('Datos de tareas por distrito', datosTareasEmpleado);
         this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
         this.dataSource.data = this.tareas;
-        console.log('Datos asignados al dataSource', this.dataSource.data);
       });
     });
   }
@@ -80,7 +78,6 @@ export class CuatrimestreComponent implements OnInit {
       const valoresMeses: { [key: string]: number } = {};
 
       if (datosTarea.length > 0) {
-        console.log(`Datos para la tarea ${tarea.Descripcion}:`, datosTarea);
         datosTarea.forEach(dato => {
           const mesNombre = this.mapearNumeroAMes(dato.mes);
           valoresMeses[mesNombre] = dato.total;
@@ -192,5 +189,9 @@ export class CuatrimestreComponent implements OnInit {
         });
       }
     });
+  }
+
+  regresarAlPanelPrincipal() {
+    this.router.navigate(['/admin-panel']);
   }
 }

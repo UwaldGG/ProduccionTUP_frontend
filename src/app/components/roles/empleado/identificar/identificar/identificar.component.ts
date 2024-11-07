@@ -46,7 +46,6 @@ export class IdentificarComponent implements OnInit {
 
   onLogin(): void {
     if (this.selectedDistrito && this.password) {
-      console.log(this.selectedDistrito);
       this.authService.verifyPassword(this.selectedDistrito, this.password).subscribe(
         (isAuthenticated) => {
           if (isAuthenticated) {
@@ -55,7 +54,6 @@ export class IdentificarComponent implements OnInit {
             this.router.navigate(['data', this.selectedDistrito]);
           } else {
             this.errorMessage = 'La contraseña es incorrecta, intenta de nuevo.';
-            console.log('Contraseña incorrecta.');
             setTimeout(() => {
               this.errorMessage = '';
             }, 3000);
@@ -65,6 +63,10 @@ export class IdentificarComponent implements OnInit {
     } else {
       console.log('Debe seleccionar un distrito y proporcionar la contraseña.');
     }
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
   
 }

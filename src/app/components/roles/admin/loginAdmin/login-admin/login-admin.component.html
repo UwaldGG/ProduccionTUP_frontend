@@ -40,6 +40,10 @@
       <button type="submit" class="btn-submit" [disabled]="loginForm.invalid">
         Iniciar Sesión
       </button>
+
+      <button type="button" (click)="goToLogin()" class="cancel-button">
+        <i class="fas fa-home"></i> Regresar al Inicio
+      </button>      
     </form>
 
     <div *ngIf="errorMessage" class="error-message">

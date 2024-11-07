@@ -56,10 +56,14 @@ select {
     text-align: center;
   }
   
-  /* Estilo para los botones (si se agregan en el futuro) */
+  .button-container {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
   button {
     padding: 5px 10px;
-    margin: 10px;
     font-size: 14px;
     color: #fff;
     background-color: #007bff;
@@ -71,13 +75,28 @@ select {
   button:hover {
     background-color: #0056b3;
   }
-
-  /* Estilo para botón desactivado */
-button:disabled {
-  background-color: #ccc; /* Color de fondo gris cuando está desactivado */
-  color: #666; /* Color de texto gris para botón desactivado */
-  cursor: not-allowed; /* Cambia el cursor a 'no permitido' */
-}
+  
+  button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+  
+  /* Estilo específico para el botón de regreso al panel principal */
+  .home-button {
+    display: flex;
+    align-items: center;
+    background-color: #28a745; /* Color verde */
+  }
+  
+  .home-button i {
+    margin-right: 5px; /* Espacio entre el icono y el texto */
+  }
+  
+  .home-button:hover {
+    background-color: #218838;
+  }
+  
    
   /* Encabezado mejorado */
   h1 {

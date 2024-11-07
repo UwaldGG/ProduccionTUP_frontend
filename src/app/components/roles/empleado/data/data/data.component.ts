@@ -12,6 +12,8 @@ import { ConfirmDialogsComponent } from '../../../../dialogs/confirm/confirm-dia
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { ConfigService } from '../../../../../services/config/config.service';
+import { AuthService } from '../../../../../services/auth.service';
+import { Router } from '@angular/router'
 
 // Interfaz para definir la estructura de las tareas
 interface Tarea {
@@ -55,7 +57,9 @@ export class DataComponent implements OnInit {
     private tareasService: TareasService,
     private dataService: DataService,
     private dialog: MatDialog,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +67,6 @@ export class DataComponent implements OnInit {
     const distritoId: string = this.route.snapshot.paramMap.get('id') || '';
     const distritoIdNumber = Number(distritoId);
     this.distritoid2 = distritoIdNumber;
-    console.log(distritoIdNumber);
 
     if (!isNaN(distritoIdNumber)) {
       this.distritosService.getDistrito(distritoId).subscribe((distritoData) => {
@@ -77,7 +80,6 @@ export class DataComponent implements OnInit {
   }
 
   onAnioSeleccionado(): void {
-    console.log('Año seleccionado:', this.anioSeleccionado);
     // Limpiar selección de empleado y datos al cambiar de año
     this.empleadoSeleccionado = 0;
     this.tareas = [];
@@ -88,7 +90,6 @@ export class DataComponent implements OnInit {
   }
 
   onEmpleadoSeleccionado(): void {
-    console.log("Empleado seleccionado", this.empleadoSeleccionado);
     this.columnasEditables = Array(12).fill(false);
     if(this.empleadoSeleccionado > 0 && this.anioSeleccionado){
       this.cargarTareasPorEmpleadoYAnio(this.empleadoSeleccionado, this.anioSeleccionado);
@@ -100,11 +101,8 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
         this.tareas = todasLasTareas;
         this.dataService.getTareasPorEmpleadoYAnio(empleadoId, anio).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
           this.empleadoid2 = empleadoId;
-          console.log('datosTareasEmpleados', datosTareasEmpleado);
           this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
-          console.log('Tareas después de formatear:', this.tareas);
           this.dataSource.data = this.tareas;  // Asignación correcta
-          console.log('Tareas asignadas al dataSource:', this.dataSource.data);
         });
       });
     }
@@ -119,8 +117,6 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
       const valoresMeses: { [key: string]: number } = {};
   
       if (datosTarea.length > 0) {
-        console.log(`Datos para la tarea ${tarea.Descripcion}:`, datosTarea);
-
         datosTarea.forEach(dato => {
           const mesNombre = this.mapearNumeroAMes(dato.mes);
           valoresMeses[mesNombre] = dato.cantidad;
@@ -199,10 +195,6 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
     })
   }
   
-  //toggleEdit() {
-    //this.isEditing = !this.isEditing;
-  //}
-  
   guardarDatosPorMes(mes: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogsComponent, {
       data: {
@@ -251,5 +243,10 @@ private cargarTareasPorEmpleadoYAnio(empleadoId: number, anio: number): void {
     //this.columnasEditables[this.meses.indexOf(mes)] = false;
       }
     })
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login-empleado']); // Ruta a la página de login
   }
 }  

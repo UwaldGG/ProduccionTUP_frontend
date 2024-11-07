@@ -43,8 +43,11 @@ onLogin() {
   });
 }
 
-
   openSuccessModal(): void {
     this.dialog.open(SuccessModalComponent);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }

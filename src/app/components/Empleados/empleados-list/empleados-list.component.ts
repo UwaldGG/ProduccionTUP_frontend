@@ -29,7 +29,6 @@ export class EmpleadosListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.getEmpleados();
     this.getEmpleadosWithDistritos();
   }
 

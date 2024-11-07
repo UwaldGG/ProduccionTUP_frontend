@@ -10,6 +10,7 @@ import { ConfigService } from '../../../services/config/config.service';
 import * as ExcelJS from 'exceljs';
 import { ConfirmDialogsComponent } from '../../dialogs/confirm/confirm-dialogs/confirm-dialogs.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 interface Tarea {
@@ -37,7 +38,8 @@ export class YearComponent implements OnInit {
     private consolidadosService: ConsolidadosService,
     private tareasService: TareasService,
     private configService: ConfigService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,6 @@ export class YearComponent implements OnInit {
   }
 
   onAnioSeleccionado() {
-    console.log('Año seleccionado:', this.anioSeleccionado);
     if (this.anioSeleccionado) {
       this.obtenerConsolidadoPorAnio(this.anioSeleccionado);
     }
@@ -55,10 +56,8 @@ export class YearComponent implements OnInit {
     this.tareasService.getTareas().subscribe((todasLasTareas: Tarea[]) => {
       this.tareas = todasLasTareas;
       this.consolidadosService.obtenerConsolidadoPorAnio(anio).subscribe((datosTareasEmpleado: DatosTareaEmpleado[]) => {
-        console.log('Datos de tareas por año:', datosTareasEmpleado);
         this.tareas = this.formatearTareasParaTabla(this.tareas, datosTareasEmpleado);
         this.dataSource.data = this.tareas;
-        console.log('Datos asignados al dataSource:', this.dataSource.data);
       });
     });
   }
@@ -176,4 +175,9 @@ export class YearComponent implements OnInit {
         }
       });
     }
+
+  regresarAlPanelPrincipal() {
+    this.router.navigate(['/admin-panel']);
+  }
+
 }

@@ -10,8 +10,8 @@ import { DatosTareaEmpleado} from '../../interfaces/model'
 })
 
 export class DataService {
-    private apiUrl = 'http://localhost:3000/api/v1/tareas';
-    private apiUrl2 = 'http://localhost:3000/api/v1/empleados_tareas'
+    private apiUrl = 'http://200.12.42.13:3000/api/v1/tareas';
+    private apiUrl2 = 'http://200.12.42.13:3000/api/v1/empleados_tareas'
 
     constructor(private http: HttpClient) { }
 
@@ -28,7 +28,6 @@ export class DataService {
       return this.http.post(`${this.apiUrl2}/actualizar-datos`, datos);
     }
 
-// Ejemplo de un método en el servicio para obtener tareas
     getTareasPorEmpleadoYAnio(empleadoId: number, anio: number): Observable<DatosTareaEmpleado[]> {
       return this.http.get<DatosTareaEmpleado[]>(`${this.apiUrl2}/empleado/${empleadoId}/year/${anio}`);
     }
