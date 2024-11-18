@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DistritosService } from '../../../../../services/distritos/distritos.service'; 
 import { TareasService } from '../../../../../services/tareas/tareas.service'; 
 import { EmpleadosService } from '../../../../../services/Empleados/empleados.service'; 
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-panel',
@@ -20,7 +21,8 @@ export class PanelComponent implements OnInit {
     private distritosService: DistritosService,
     private tareasService: TareasService,
     private empleadosService: EmpleadosService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -103,6 +105,11 @@ export class PanelComponent implements OnInit {
 
   goToConsolidadoPorAnio(): void {
     this.router.navigate(['/admin-panel/consolidado/por-year']);
+  }
+
+  cerrarSesion(){
+    this.authService.logout();
+    this.router.navigate(['/login-admin']);
   }
 
 }

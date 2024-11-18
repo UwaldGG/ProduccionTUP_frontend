@@ -7,7 +7,7 @@ import { Empleado, Tarea, Distrito } from '../../interfaces/model';
   providedIn: 'root',
 })
 export class EmpleadosService {
-  private apiUrl = 'http://200.12.42.13:3000/api/v1/empleados';
+  private apiUrl = '/api/v1/empleados';
 
   constructor(private http: HttpClient) {}
 

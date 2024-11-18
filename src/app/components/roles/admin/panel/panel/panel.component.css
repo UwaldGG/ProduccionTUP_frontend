@@ -176,3 +176,25 @@ footer p {
         width: 100%;
     }
 }
+
+    /* Estilos para el botón de cerrar sesión */
+    .btn-logout {
+        padding: 12px 25px;
+        background-color: #d9534f; /* Color rojo para destacarse */
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        margin-right: 20px; /* Un poco de espacio a la derecha */
+    }
+
+    .btn-logout:hover {
+        background-color: #c9302c; /* Color más oscuro al pasar el ratón */
+        transform: scale(1.05);
+    }
+
+    .btn-logout:focus {
+        outline: none; /* Elimina el contorno por defecto al hacer clic */
+    }
